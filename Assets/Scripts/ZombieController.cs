@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyZombieMovement : MonoBehaviour {
+public class ZombieController : MonoBehaviour {
 
 	private Vector2 leftLimit;
 	private Vector2 rightLimit;
