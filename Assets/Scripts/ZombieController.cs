@@ -11,6 +11,7 @@ public class ZombieController : MonoBehaviour {
 	private SpriteRenderer mySpriteRenderer;
 	private Animator myAnimator;
 
+	public float HP = 1.0f;
 	public float movementSpeed = 2.0f;
 
 	void Awake()
@@ -25,51 +26,54 @@ public class ZombieController : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-		MoveEnemyToDirection ();
+		if (HP > 0) {
+			MoveEnemyToDirection ();
+		}
 	}
 
 	void Update() {
-		UpdateAnimator ();
+		if (HP > 0) {
+			myAnimator.SetFloat ("hSpeed", Mathf.Abs (myRigidbody.velocity.x));
+		}
 	}
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		Debug.LogFormat ("OnCollisionEnter2D - gameobject name {0} tag {1}", col.gameObject.name, col.gameObject.tag);
-
-		if (col.gameObject.tag == "ground" && col.contacts [0].collider.sharedMaterial == null) {
-
-			SetMovementLimits (col.contacts [0]);
-
-		} else {
-
-			if (col.gameObject.tag == "Player") {
-				
-				//Check collision conditions to perform attack animation
-
-				//Attack();
-			}else{
-				Flip ();
+		if (HP > 0) {
+			if (col.gameObject.tag == "ground" && col.contacts [0].collider.sharedMaterial == null) {
+				SetMovementLimits (col.contacts [0]);
+			} else {
+				if (col.gameObject.tag == "Player") {
+					//Check collision conditions to perform attack animation
+					float xContactPoint = col.contacts [0].normal.x;
+					if (xContactPoint == 1 || xContactPoint == -1) {
+						if ((movementDirection == Vector2.right && xContactPoint == 1) || (movementDirection == Vector2.left && xContactPoint == -1)) {
+							Flip ();
+						}
+						myRigidbody.velocity = Vector2.zero;
+						myAnimator.SetBool ("isAttacking", true);
+					}
+				} else {
+					Flip ();
+				}
 			}
 		}
 	}
 
 	void OnCollisionExit2D(Collision2D col){
-		Debug.LogFormat ("OnCollisionEnter2D - gameobject name {0} tag {1}", col.gameObject.name, col.gameObject.tag);
+		if (HP > 0) {
+			if (col.gameObject.tag == "ground" && col.contacts [0].collider.sharedMaterial == null) {
+				ResetMovementLimits ();
+			} else if (col.gameObject.tag == "Player") {
 
-		if (col.gameObject.tag == "ground" && col.contacts [0].collider.sharedMaterial == null) {
-			ResetMovementLimits();
+				myAnimator.SetBool ("isAttacking", false);
+			}
 		}
 	}
 
 	private void ResetMovementLimits(){
 		leftLimit = Vector2.zero;
 		rightLimit = Vector2.zero;
-	}
-
-	private void UpdateAnimator() {
-		myAnimator.SetFloat ("hSpeed", Mathf.Abs(myRigidbody.velocity.x));
-		myAnimator.SetBool ("isDead", false);
-		myAnimator.SetBool ("isAttacking", false);
 	}
 		
 	private void MoveEnemyToDirection() {
@@ -106,6 +110,17 @@ public class ZombieController : MonoBehaviour {
 				Flip ();
 			}
 
+		}
+	}
+
+	public void ReceiveDamage(float damage){
+		HP -= damage;
+
+		if (HP <= 0) {
+			movementDirection = Vector2.zero;
+			myRigidbody.velocity = Vector2.zero;
+			myAnimator.SetBool ("isAttacking", false);
+			myAnimator.SetBool ("isDead", true);
 		}
 	}
 }
