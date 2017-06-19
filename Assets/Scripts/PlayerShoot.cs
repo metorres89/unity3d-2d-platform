@@ -12,6 +12,7 @@ public class PlayerShoot : MonoBehaviour {
 	private Vector3 offset;
 	private bool myFlipX = false;
 	private float lazerTimer;
+
 	void Start(){
 		lazerOrigin = gameObject.transform.Find ("LazerOrigin").gameObject;
 		offset = lazerOrigin.transform.position - player.transform.position;
@@ -75,8 +76,6 @@ public class PlayerShoot : MonoBehaviour {
 				newPos = player.transform.position + offset;
 			
 			lazerOrigin.transform.position = newPos;
-
-			Debug.Log ("Flip lazer origin!");
 		}
 	}
 }

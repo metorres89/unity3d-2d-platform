@@ -11,6 +11,9 @@ public class ZombieController : MonoBehaviour {
 	private SpriteRenderer mySpriteRenderer;
 	private Animator myAnimator;
 
+	private CapsuleCollider2D myOnLiveCollider;
+	private BoxCollider2D myOnDeadCollider;
+
 	public float HP = 1.0f;
 	public float movementSpeed = 2.0f;
 
@@ -22,6 +25,8 @@ public class ZombieController : MonoBehaviour {
 		myRigidbody = gameObject.GetComponent<Rigidbody2D> ();
 		mySpriteRenderer = gameObject.GetComponent<SpriteRenderer> ();
 		myAnimator = gameObject.GetComponent<Animator> ();
+		myOnLiveCollider = gameObject.GetComponent<CapsuleCollider2D> ();
+		myOnDeadCollider = gameObject.GetComponent<BoxCollider2D> ();
 
 	}
 	
@@ -121,6 +126,10 @@ public class ZombieController : MonoBehaviour {
 			myRigidbody.velocity = Vector2.zero;
 			myAnimator.SetBool ("isAttacking", false);
 			myAnimator.SetBool ("isDead", true);
+
+			myOnLiveCollider.enabled = false;
+			myOnDeadCollider.enabled = true;
+			gameObject.layer = LayerMask.NameToLayer ("Handheld");
 		}
 	}
 }

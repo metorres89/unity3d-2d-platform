@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 70855943722120956}
   - component: {fileID: 114505659286926666}
   - component: {fileID: 50816749983375598}
+  - component: {fileID: 61733526830625498}
   m_Layer: 10
   m_Name: ZombieFemale
   m_TagString: Enemy
@@ -64,6 +65,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!61 &61733526830625498
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1422205703730634}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: -2.1986194}
+  serializedVersion: 2
+  m_Size: {x: 5, y: 0.754385}
 --- !u!70 &70855943722120956
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
@@ -75,8 +90,8 @@ CapsuleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -0.58313036}
-  m_Size: {x: 2.3, y: 4.5}
+  m_Offset: {x: 0, y: -0.46032286}
+  m_Size: {x: 2.3, y: 4.254385}
   m_Direction: 0
 --- !u!95 &95658233526086632
 Animator:
@@ -106,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a79ae9d34b27f4eabd2b6f68be1866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HP: 1
   movementSpeed: 2
 --- !u!212 &212874034309043166
 SpriteRenderer:

@@ -439,6 +439,24 @@ GameObject:
   m_PrefabParentObject: {fileID: 1926384127893322, guid: eb5b03b87e5766442be16facbf91b184,
     type: 2}
   m_PrefabInternal: {fileID: 1951219708}
+--- !u!114 &815410612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 815410610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f149dfcfc5c4134a882b138dd114d30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handheldCheck: {fileID: 0}
+  handheldCheckRadius: 0.2
+  handheldLayer:
+    serializedVersion: 2
+    m_Bits: 8192
+  handheldObject: {fileID: 0}
+  handheldPosition: {fileID: 0}
 --- !u!1001 &952648699
 Prefab:
   m_ObjectHideFlags: 0
@@ -727,8 +745,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 15
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -814,6 +832,23 @@ Prefab:
     - target: {fileID: 1926384127893322, guid: eb5b03b87e5766442be16facbf91b184, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814254077419050, guid: eb5b03b87e5766442be16facbf91b184, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1926384127893322, guid: eb5b03b87e5766442be16facbf91b184, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894441468250128, guid: eb5b03b87e5766442be16facbf91b184, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114888490339395570, guid: eb5b03b87e5766442be16facbf91b184,
+        type: 2}
+      propertyPath: groundLayer.m_Bits
+      value: 4294959103
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb5b03b87e5766442be16facbf91b184, type: 2}
