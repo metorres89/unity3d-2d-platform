@@ -12,45 +12,69 @@ public class HandheldObjectController : MonoBehaviour {
 	public GameObject handheldObject;
 	public Transform handheldPosition;
 
+	private float delayTakeObject = 0.5f;
+
 	void Awake(){
 		handheldObject = null;
 	}
 
 	void Start () {
 		handheldCheck = gameObject.transform.Find ("GroundCheck").transform;
-		handheldPosition = gameObject.transform.Find ("LazerOrigin").transform;
 	}
 
 	void FixedUpdate () {
-		CheckIfIsOverHandheldObject ();
-		//TODO - se debe agregar la lógica que permita arrojar el cuerpo tomado
-		//TossObject ();
-	}
-
-	void Update(){
-		if(handheldObject != null)
-			handheldObject.transform.position = handheldPosition.position;
-	}
-
-	private void CheckIfIsOverHandheldObject() {
 		if (handheldObject == null) {
-			Collider2D[] colliders = Physics2D.OverlapCircleAll(handheldCheck.position, handheldCheckRadius, handheldLayer);
-			for (int i = 0; i < colliders.Length; i++)
-			{
-				if (colliders[i].gameObject != gameObject) {
-					if(Input.GetAxis("Fire1") > 0){
-						Debug.LogFormat ("Player wants to drag {0}", colliders [i].gameObject.tag);
-						handheldObject = colliders [i].gameObject;
-						return;
-					}
-				}
+			CheckIfIsOverHandheldObject ();
+		}
+	}
+
+	void Update() {
+		if (handheldObject != null) {
+
+			if (Input.GetKeyDown(KeyCode.LeftControl) && delayTakeObject <= 0.0f) {
+				Debug.Log ("player wants to toss de object!");
+
+				TossObject ();
+
+			} else {
+
+				delayTakeObject -= Time.deltaTime;
 			}
 		}
 	}
 
+	private void CheckIfIsOverHandheldObject() {
+			Collider2D[] colliders = Physics2D.OverlapCircleAll(handheldCheck.position, handheldCheckRadius, handheldLayer);
+			for (int i = 0; i < colliders.Length; i++)
+			{
+				if (colliders[i].gameObject != gameObject) {
+					if(Input.GetKeyDown(KeyCode.LeftControl)) {
+						TakeObject (colliders [i].gameObject);
+						return;
+					}
+				}
+			}
+	}
+
+	private void TakeObject(GameObject target) {
+		Debug.LogFormat ("Player wants to drag {0}", target.tag);
+		handheldObject = target;
+		handheldObject.transform.parent = handheldPosition;
+		handheldObject.transform.localPosition = Vector2.zero;
+		handheldObject.transform.position = handheldPosition.position;
+		handheldObject.GetComponent<Rigidbody2D> ().simulated = false;
+	}
+
 	private void TossObject() {
 		if (handheldObject != null && Input.GetAxis("Fire1") > 0) {
-			handheldObject.GetComponent<Rigidbody2D> ().AddForce (Vector2.up * 20.0f);
+
+			Rigidbody2D handheldRigidbody = handheldObject.GetComponent<Rigidbody2D> ();
+			handheldObject.transform.parent = null;
+			handheldRigidbody.simulated = true;
+			handheldRigidbody.AddForce (Vector2.up * 100.0f);
+
+			handheldObject = null;
+			delayTakeObject = 0.5f;
 		}
 	}
 }
