@@ -58,10 +58,13 @@ public class ZombieController : MonoBehaviour {
 						myRigidbody.velocity = Vector2.zero;
 						myAnimator.SetBool ("isAttacking", true);
 					}
+				}else if(col.gameObject.layer == LayerMask.NameToLayer("Handheld")) {
+					ReceiveDamage (1.0f);
 				} else {
 					Flip ();
 				}
 			}
+
 		}
 	}
 
@@ -130,6 +133,7 @@ public class ZombieController : MonoBehaviour {
 			myOnLiveCollider.enabled = false;
 			myOnDeadCollider.enabled = true;
 			gameObject.layer = LayerMask.NameToLayer ("Handheld");
+			//gameObject.tag = "Handheld";
 		}
 	}
 }

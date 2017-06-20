@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class HandheldObjectController : MonoBehaviour {
 
-	//this properties work checking if character is over a handheld object to use
 	public Transform handheldCheck;
 	public float handheldCheckRadius = 0.2f;
 	public LayerMask handheldLayer;
-
 	public GameObject handheldObject;
 	public Transform handheldPosition;
+
+	public float tossForce = 2000.0f;
 
 	private float delayTakeObject = 0.5f;
 
@@ -74,12 +74,20 @@ public class HandheldObjectController : MonoBehaviour {
 
 	private void TossObject() {
 		if (handheldObject != null && Input.GetAxis("Fire1") > 0) {
-
 			Rigidbody2D handheldRigidbody = handheldObject.GetComponent<Rigidbody2D> ();
 			handheldObject.transform.parent = null;
 			handheldRigidbody.simulated = true;
-			handheldRigidbody.AddForce (Vector2.up * 1000.0f);
 
+			float hAxis = Input.GetAxis ("Horizontal");
+
+			if (hAxis == 0.0f) {
+				if (hoSpriteRenderer.flipX)
+					hAxis = -1.0f;
+				else
+					hAxis = 1.0f;
+			}
+
+			handheldRigidbody.AddForce (new Vector2(hAxis, Input.GetAxis ("Vertical")) * tossForce);
 			handheldObject = null;
 			delayTakeObject = 0.5f;
 		}
