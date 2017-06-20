@@ -14,8 +14,11 @@ public class HandheldObjectController : MonoBehaviour {
 
 	private float delayTakeObject = 0.5f;
 
+	private SpriteRenderer hoSpriteRenderer;
+
 	void Awake(){
 		handheldObject = null;
+		hoSpriteRenderer = null;
 	}
 
 	void Start () {
@@ -63,6 +66,10 @@ public class HandheldObjectController : MonoBehaviour {
 		handheldObject.transform.localPosition = Vector2.zero;
 		handheldObject.transform.position = handheldPosition.position;
 		handheldObject.GetComponent<Rigidbody2D> ().simulated = false;
+
+		hoSpriteRenderer = handheldObject.GetComponent<SpriteRenderer> ();
+		SpriteRenderer playerSR = gameObject.GetComponent<SpriteRenderer> ();
+		hoSpriteRenderer.flipX = playerSR.flipX;
 	}
 
 	private void TossObject() {
@@ -71,10 +78,17 @@ public class HandheldObjectController : MonoBehaviour {
 			Rigidbody2D handheldRigidbody = handheldObject.GetComponent<Rigidbody2D> ();
 			handheldObject.transform.parent = null;
 			handheldRigidbody.simulated = true;
-			handheldRigidbody.AddForce (Vector2.up * 100.0f);
+			handheldRigidbody.AddForce (Vector2.up * 1000.0f);
 
 			handheldObject = null;
 			delayTakeObject = 0.5f;
+		}
+	}
+
+	public void Flip(bool flipX) {
+		if (handheldObject != null && hoSpriteRenderer != null) {
+			if (flipX != hoSpriteRenderer.flipX)
+				hoSpriteRenderer.flipX = flipX;
 		}
 	}
 }

@@ -821,6 +821,14 @@ Prefab:
       propertyPath: handheldPosition
       value: 
       objectReference: {fileID: 907910819}
+    - target: {fileID: 4501151325504062, guid: eb5b03b87e5766442be16facbf91b184, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4501151325504062, guid: eb5b03b87e5766442be16facbf91b184, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb5b03b87e5766442be16facbf91b184, type: 2}
   m_IsPrefabParent: 0

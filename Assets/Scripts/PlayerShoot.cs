@@ -63,7 +63,7 @@ public class PlayerShoot : MonoBehaviour {
 		}
 	}
 
-	public void FlipLazerOrigin(bool flip)
+	public void Flip(bool flip)
 	{
 		if (flip != myFlipX) {
 			myFlipX = flip;

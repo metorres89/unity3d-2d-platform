@@ -7,11 +7,14 @@ public class PlayerAnimationController : MonoBehaviour {
 	private Animator myAnimator;
 	private SpriteRenderer mySpriteRenderer;
 	private PlayerShoot myPlayerShoot;
+	private HandheldObjectController myHandheldObjectController;
 	// Use this for initialization
 	void Start () {
 		myAnimator = GetComponent<Animator> ();
 		mySpriteRenderer = GetComponent<SpriteRenderer> ();
 		myPlayerShoot = GetComponent<PlayerShoot> ();
+
+		myHandheldObjectController = GetComponent<HandheldObjectController> ();
 	}
 	
 	// Update is called once per frame
@@ -29,13 +32,15 @@ public class PlayerAnimationController : MonoBehaviour {
 	}
 
 	void Flip(){
-		
+		//flip sprite renderer
 		if (PlayerState.horizontalDirection < 0) {
 			mySpriteRenderer.flipX = true;
 		} else if (PlayerState.horizontalDirection > 0) {
 			mySpriteRenderer.flipX = false;
 		}
 
-		myPlayerShoot.FlipLazerOrigin (mySpriteRenderer.flipX);
+		//flips
+		myPlayerShoot.Flip (mySpriteRenderer.flipX);
+		myHandheldObjectController.Flip (mySpriteRenderer.flipX);
 	}
 }
