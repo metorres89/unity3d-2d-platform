@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 
 	//movement character
 	private Rigidbody2D myRigidbody;
+	private Animator myAnimator;
+	private SpriteRenderer mySpriteRenderer;
+	private PlayerShoot myPlayerShoot;
+	private PlayerGrabObject myPlayerGrabO;
+
 	public float horizontalSpeed = 20.0f;
 	public float jumpForce = 20.0f;
 
@@ -17,6 +22,11 @@ public class PlayerMovement : MonoBehaviour {
 	void Start () {
 		myRigidbody = GetComponent<Rigidbody2D> ();
 		groundCheck = gameObject.transform.Find ("GroundCheck").transform;
+
+		myAnimator = GetComponent<Animator> ();
+		mySpriteRenderer = GetComponent<SpriteRenderer> ();
+		myPlayerShoot = GetComponent<PlayerShoot> ();
+		myPlayerGrabO = GetComponent<PlayerGrabObject> ();
 	}
 
 	void FixedUpdate () {
@@ -24,7 +34,21 @@ public class PlayerMovement : MonoBehaviour {
 		HandleMove (Input.GetAxis ("Horizontal"), Input.GetAxis ("Jump"));
 	}
 
-	void HandleMove(float horizontal, float jump) {
+	void Update () {
+		UpdateAnimationController ();
+		CheckFlip ();
+	}
+
+	void OnCollisionEnter2D(Collision2D col)
+	{
+		if (col.gameObject.tag == "Enemy" && col.contacts[0].normal.y > 0) {
+
+			col.gameObject.GetComponent<ZombieController> ().ReceiveDamage (1.0f);
+
+		}
+	}
+
+	private void HandleMove(float horizontal, float jump) {
 		float velocityOnYAxis = 0.0f;
 
 		if (jump > 0 && PlayerState.isOnGround) {
@@ -53,4 +77,25 @@ public class PlayerMovement : MonoBehaviour {
 
 	}
 
+	private void UpdateAnimationController()
+	{
+		myAnimator.SetFloat ("horizontalSpeed", Mathf.Abs(PlayerState.horizontalDirection));
+		myAnimator.SetBool ("isOnGround", PlayerState.isOnGround);
+		myAnimator.SetBool ("isShooting", PlayerState.isShooting);
+		myAnimator.SetBool ("isDead", PlayerState.isDead);
+	}
+
+	private void CheckFlip(){
+		if (PlayerState.horizontalDirection < 0 && mySpriteRenderer.flipX == false) {
+			ExecutePlayerFlip (true);
+		} else if (PlayerState.horizontalDirection > 0 && mySpriteRenderer.flipX == true) {
+			ExecutePlayerFlip (false);
+		}
+	}
+
+	private void ExecutePlayerFlip(bool flipX){
+		mySpriteRenderer.flipX = flipX;
+		myPlayerShoot.Flip (mySpriteRenderer.flipX);
+		myPlayerGrabO.Flip (mySpriteRenderer.flipX);
+	}
 }
