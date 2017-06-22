@@ -30,21 +30,25 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		CheckIfIsGrounded ();
-		HandleMove (Input.GetAxis ("Horizontal"), Input.GetAxis ("Jump"));
+		if (PlayerState.HP > 0.0f) {
+			CheckIfIsGrounded ();
+			HandleMove (Input.GetAxis ("Horizontal"), Input.GetAxis ("Jump"));
+		}
 	}
 
 	void Update () {
-		UpdateAnimationController ();
-		CheckFlip ();
+		if (PlayerState.HP > 0.0f) {
+			UpdateAnimationController ();
+			CheckFlip ();
+		}
 	}
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		if (col.gameObject.tag == "Enemy" && col.contacts[0].normal.y > 0) {
-
-			col.gameObject.GetComponent<ZombieController> ().ReceiveDamage (1.0f);
-
+		if (PlayerState.HP > 0.0f) {
+			if (col.gameObject.tag == "Enemy" && col.contacts [0].normal.y > 0) {
+				col.gameObject.GetComponent<ZombieController> ().ReceiveDamage (1.0f);
+			}
 		}
 	}
 
@@ -97,5 +101,13 @@ public class PlayerController : MonoBehaviour {
 		mySpriteRenderer.flipX = flipX;
 		myPlayerShoot.Flip (mySpriteRenderer.flipX);
 		myPlayerGrabO.Flip (mySpriteRenderer.flipX);
+	}
+
+	public void ReceiveDamage(float damage) {
+		PlayerState.HP -= damage;
+
+		if (PlayerState.HP <= 0) {
+			PlayerState.isDead = true;
+		}
 	}
 }
