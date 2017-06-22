@@ -9,11 +9,9 @@ public class HandheldObjectController : MonoBehaviour {
 	public LayerMask handheldLayer;
 	public GameObject handheldObject;
 	public Transform handheldPosition;
-
-	public float tossForce = 2000.0f;
+	public float throwForce = 2000.0f;
 
 	private float delayTakeObject = 0.5f;
-
 	private SpriteRenderer hoSpriteRenderer;
 
 	void Awake(){
@@ -35,9 +33,9 @@ public class HandheldObjectController : MonoBehaviour {
 		if (handheldObject != null) {
 
 			if (Input.GetKeyDown(KeyCode.LeftControl) && delayTakeObject <= 0.0f) {
-				Debug.Log ("player wants to toss de object!");
+				Debug.Log ("player wants to throw the object!");
 
-				TossObject ();
+				ThrowObject ();
 
 			} else {
 
@@ -47,20 +45,21 @@ public class HandheldObjectController : MonoBehaviour {
 	}
 
 	private void CheckIfIsOverHandheldObject() {
-			Collider2D[] colliders = Physics2D.OverlapCircleAll(handheldCheck.position, handheldCheckRadius, handheldLayer);
-			for (int i = 0; i < colliders.Length; i++)
-			{
-				if (colliders[i].gameObject != gameObject) {
-					if(Input.GetKeyDown(KeyCode.LeftControl)) {
-						TakeObject (colliders [i].gameObject);
-						return;
-					}
+		Collider2D[] colliders = Physics2D.OverlapCircleAll (handheldCheck.position, handheldCheckRadius, handheldLayer);
+
+		for (int i = 0; i < colliders.Length; i++) {
+			if (colliders[i].gameObject != gameObject) {
+				if(Input.GetKeyDown(KeyCode.LeftControl)) {
+					TakeObject (colliders [i].gameObject);
+					return;
 				}
 			}
+		}
 	}
 
 	private void TakeObject(GameObject target) {
 		Debug.LogFormat ("Player wants to drag {0}", target.tag);
+
 		handheldObject = target;
 		handheldObject.transform.parent = handheldPosition;
 		handheldObject.transform.localPosition = Vector2.zero;
@@ -72,10 +71,11 @@ public class HandheldObjectController : MonoBehaviour {
 		hoSpriteRenderer.flipX = playerSR.flipX;
 	}
 
-	private void TossObject() {
+	private void ThrowObject() {
 		if (handheldObject != null && Input.GetAxis("Fire1") > 0) {
 			Rigidbody2D handheldRigidbody = handheldObject.GetComponent<Rigidbody2D> ();
 			handheldObject.transform.parent = null;
+			handheldObject.layer = LayerMask.NameToLayer("ThrownObject");
 			handheldRigidbody.simulated = true;
 
 			float hAxis = Input.GetAxis ("Horizontal");
@@ -87,7 +87,7 @@ public class HandheldObjectController : MonoBehaviour {
 					hAxis = 1.0f;
 			}
 
-			handheldRigidbody.AddForce (new Vector2(hAxis, Input.GetAxis ("Vertical")) * tossForce);
+			handheldRigidbody.AddForce (new Vector2(hAxis, Input.GetAxis ("Vertical")) * throwForce);
 			handheldObject = null;
 			delayTakeObject = 0.5f;
 		}

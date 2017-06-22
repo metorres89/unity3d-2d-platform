@@ -202,9 +202,12 @@ MonoBehaviour:
   handheldLayer:
     serializedVersion: 2
     m_Bits: 8192
+  thrownObjectLayer:
+    serializedVersion: 2
+    m_Bits: 16384
   handheldObject: {fileID: 0}
   handheldPosition: {fileID: 4501151325504062}
-  tossForce: 2000
+  throwForce: 2000
 --- !u!114 &114470025690363562
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -259,7 +262,7 @@ MonoBehaviour:
   groundCheckRadius: 0.2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 4294959103
+    m_Bits: 4096
 --- !u!212 &212137264436725334
 SpriteRenderer:
   m_ObjectHideFlags: 1

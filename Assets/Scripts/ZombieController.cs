@@ -10,7 +10,6 @@ public class ZombieController : MonoBehaviour {
 	private Rigidbody2D myRigidbody;
 	private SpriteRenderer mySpriteRenderer;
 	private Animator myAnimator;
-
 	private CapsuleCollider2D myOnLiveCollider;
 	private BoxCollider2D myOnDeadCollider;
 
@@ -45,26 +44,41 @@ public class ZombieController : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D col)
 	{
 		if (HP > 0) {
-			if (col.gameObject.tag == "ground" && col.contacts [0].collider.sharedMaterial == null) {
-				SetMovementLimits (col.contacts [0]);
-			} else {
-				if (col.gameObject.tag == "Player") {
-					//Check collision conditions to perform attack animation
-					float xContactPoint = col.contacts [0].normal.x;
-					if (xContactPoint == 1 || xContactPoint == -1) {
-						if ((movementDirection == Vector2.right && xContactPoint == 1) || (movementDirection == Vector2.left && xContactPoint == -1)) {
-							Flip ();
-						}
-						myRigidbody.velocity = Vector2.zero;
-						myAnimator.SetBool ("isAttacking", true);
-					}
-				}else if(col.gameObject.layer == LayerMask.NameToLayer("Handheld")) {
-					ReceiveDamage (1.0f);
-				} else {
-					Flip ();
-				}
-			}
 
+			if (col.gameObject.tag == "ground" && col.contacts [0].collider.sharedMaterial == null) {
+				
+				SetMovementLimits (col.contacts [0]);
+
+			} else if (col.gameObject.tag == "Player") {
+				
+				//Check collision conditions to perform attack animation
+				float x = col.contacts [0].normal.x;
+				float y = col.contacts [0].normal.y;
+
+				Debug.LogFormat ("alive zombie has entered in collision with player at normalized points {0};{1}", x, y);
+
+				if (Mathf.Approximately(x, 1.0f) || Mathf.Approximately(x, -1.0f) )  {
+					Attack (x);
+				}
+
+			}else if(col.gameObject.layer == LayerMask.NameToLayer("ThrownObject")) {
+
+				if (Mathf.Abs (col.rigidbody.velocity.x) > 10.0f) {
+					ReceiveDamage (1.0f);
+				}
+
+			} else {
+				Flip ();
+			}
+		}
+	}
+
+	void OnCollisionStay2D(Collision2D col) {
+		if (HP <= 0) {
+			if (gameObject.layer == LayerMask.NameToLayer ("ThrownObject") && myRigidbody.velocity == Vector2.zero) {
+				Debug.Log ("return to Handheld!!!");
+				gameObject.layer = LayerMask.NameToLayer ("Handheld");
+			}
 		}
 	}
 
@@ -77,6 +91,20 @@ public class ZombieController : MonoBehaviour {
 				myAnimator.SetBool ("isAttacking", false);
 			}
 		}
+	}
+
+	private void Attack(float x){
+
+		Debug.Log ("zombie is attacking!");
+
+		if (	(movementDirection == Vector2.right && Mathf.Approximately(x, 1.0f)) || 
+				(movementDirection == Vector2.left && Mathf.Approximately(x, -1.0f))	
+		) {
+			Flip ();
+		}
+
+		myRigidbody.velocity = Vector2.zero;
+		myAnimator.SetBool ("isAttacking", true);
 	}
 
 	private void ResetMovementLimits(){
@@ -129,11 +157,9 @@ public class ZombieController : MonoBehaviour {
 			myRigidbody.velocity = Vector2.zero;
 			myAnimator.SetBool ("isAttacking", false);
 			myAnimator.SetBool ("isDead", true);
-
 			myOnLiveCollider.enabled = false;
 			myOnDeadCollider.enabled = true;
-			gameObject.layer = LayerMask.NameToLayer ("Handheld");
-			//gameObject.tag = "Handheld";
+			gameObject.layer = LayerMask.NameToLayer("Handheld");
 		}
 	}
 }

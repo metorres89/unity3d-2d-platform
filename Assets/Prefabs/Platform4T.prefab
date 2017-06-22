@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4386604444521838}
   - component: {fileID: 61877332460198838}
   - component: {fileID: 61967779627995740}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Platform4T
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4874966528289944}
   - component: {fileID: 212798104596227534}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tile (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4950681460511268}
   - component: {fileID: 212635324741534372}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tile (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4850414748413116}
   - component: {fileID: 212572490314100786}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tile (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4676040922647734}
   - component: {fileID: 212387833036011268}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tile (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4160260776176550}
   - component: {fileID: 212407353242443088}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tile (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4832453015944342}
   - component: {fileID: 212231702610437614}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tile (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +52,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4091679486971162}
   - component: {fileID: 212596548527527878}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tile (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4402097527429512}
   - component: {fileID: 212618373412684188}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tile (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4946107238316364}
   - component: {fileID: 212185382825135342}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tile (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4265680172036628}
   - component: {fileID: 212601374706716400}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tile (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4711795770037064}
   - component: {fileID: 212865561688023480}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tile (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4203940824806258}
   - component: {fileID: 212539001245526168}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tile (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 4418069495400496}
   - component: {fileID: 61128794497713766}
   - component: {fileID: 61798415020679734}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Platform8T
   m_TagString: ground
   m_Icon: {fileID: 0}
