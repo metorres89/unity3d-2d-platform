@@ -10,9 +10,11 @@ public class PlayerController : MonoBehaviour {
 	private SpriteRenderer mySpriteRenderer;
 	private PlayerShoot myPlayerShoot;
 	private PlayerGrabObject myPlayerGrabO;
+	private bool onStun = false;
 
 	public float horizontalSpeed = 20.0f;
 	public float jumpForce = 20.0f;
+	public float stunRecovery = 0.5f;
 
 	//this properties work checking if character is on ground
 	public Transform groundCheck;
@@ -32,14 +34,31 @@ public class PlayerController : MonoBehaviour {
 	void FixedUpdate () {
 		if (PlayerState.HP > 0.0f) {
 			CheckIfIsGrounded ();
-			HandleMove (Input.GetAxis ("Horizontal"), Input.GetAxis ("Jump"));
+
+			if (onStun) {
+				stunRecovery -= Time.fixedTime;
+
+				if (stunRecovery <= 0.0f) {
+					onStun = false;
+					stunRecovery = 0.5f;
+				}
+					
+			} else {
+				HandleMove (Input.GetAxis ("Horizontal"), Input.GetAxis ("Jump"));
+			}
 		}
 	}
 
 	void Update () {
 		if (PlayerState.HP > 0.0f) {
-			UpdateAnimationController ();
 			CheckFlip ();
+		}
+
+		UpdateAnimationController ();
+
+		if (Input.GetKeyDown (KeyCode.T)) {
+			Debug.Log ("add force to rigidb");
+			myRigidbody.AddForce (Vector2.right * 2000.0f, ForceMode2D.Force);
 		}
 	}
 
@@ -61,7 +80,8 @@ public class PlayerController : MonoBehaviour {
 			velocityOnYAxis = myRigidbody.velocity.y;
 		}
 
-		myRigidbody.velocity = new Vector2 (horizontal * horizontalSpeed, velocityOnYAxis);
+		myRigidbody.velocity = new Vector2 (horizontal * horizontalSpeed , velocityOnYAxis);
+		//myRigidbody.AddForce(new Vector2 (horizontal * horizontalSpeed , velocityOnYAxis), ForceMode2D.Impulse);
 
 		PlayerState.horizontalDirection = horizontal;
 	}
@@ -109,5 +129,19 @@ public class PlayerController : MonoBehaviour {
 		if (PlayerState.HP <= 0) {
 			PlayerState.isDead = true;
 		}
+	}
+
+	public void ReceiveImpact(Vector2 point, float force)
+	{
+		Debug.LogFormat ("Me estan pegando una piña!! {0}", force);
+
+		Vector2 resultForce = new Vector2 (point.x * -1 * force, 500);
+
+		Debug.Log (resultForce);
+
+		myRigidbody.AddForce (resultForce, ForceMode2D.Force);
+
+		onStun = true;
+		//myRigidbody.velocity += resultForce;
 	}
 }

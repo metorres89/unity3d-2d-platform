@@ -50,15 +50,9 @@ public class ZombieController : MonoBehaviour {
 				SetMovementLimits (col.contacts [0]);
 
 			} else if (col.gameObject.tag == "Player") {
-				
-				//Check collision conditions to perform attack animation
-				float x = col.contacts [0].normal.x;
-				float y = col.contacts [0].normal.y;
 
-				Debug.LogFormat ("alive zombie has entered in collision with player at normalized points {0};{1}", x, y);
-
-				if (Mathf.Approximately(x, 1.0f) || Mathf.Approximately(x, -1.0f) )  {
-					Attack (col.gameObject, x);
+				if (Mathf.Approximately(col.contacts [0].normal.x, 1.0f) || Mathf.Approximately(col.contacts [0].normal.x, -1.0f) )  {
+					Attack (col.gameObject, col.contacts [0].normal);
 				}
 
 			}else if(col.gameObject.layer == LayerMask.NameToLayer("ThrownObject")) {
@@ -93,12 +87,12 @@ public class ZombieController : MonoBehaviour {
 		}
 	}
 
-	private void Attack(GameObject target, float x){
+	private void Attack(GameObject target, Vector2 attackPoint){
 
 		Debug.Log ("zombie is attacking!");
 
-		if (	(movementDirection == Vector2.right && Mathf.Approximately(x, 1.0f)) || 
-				(movementDirection == Vector2.left && Mathf.Approximately(x, -1.0f))	
+		if (	(movementDirection == Vector2.right && Mathf.Approximately(attackPoint.x, 1.0f)) || 
+			(movementDirection == Vector2.left && Mathf.Approximately(attackPoint.x, -1.0f))	
 		) {
 			Flip ();
 		}
@@ -106,7 +100,9 @@ public class ZombieController : MonoBehaviour {
 		myRigidbody.velocity = Vector2.zero;
 		myAnimator.SetBool ("isAttacking", true);
 
-		target.GetComponent<PlayerController> ().ReceiveDamage (1.0f);
+		PlayerController pc = target.GetComponent<PlayerController> ();
+		pc.ReceiveDamage (1.0f);
+		pc.ReceiveImpact (attackPoint, 2000.0f);
 	}
 
 	private void ResetMovementLimits(){
