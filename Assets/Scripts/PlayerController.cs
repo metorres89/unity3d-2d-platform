@@ -11,10 +11,13 @@ public class PlayerController : MonoBehaviour {
 	private PlayerShoot myPlayerShoot;
 	private PlayerGrabObject myPlayerGrabO;
 	private bool onStun = false;
+	private float myStunRecoveryTime = 0.0f;
 
 	public float horizontalSpeed = 20.0f;
 	public float jumpForce = 20.0f;
-	public float stunRecovery = 0.5f;
+	public float stunRecoveryTime = 0.5f;
+	public float impactVerticalForce = 500.0f;
+	public float smashEnemyHeadDamage = 1.0f;
 
 	//this properties work checking if character is on ground
 	public Transform groundCheck;
@@ -29,6 +32,8 @@ public class PlayerController : MonoBehaviour {
 		mySpriteRenderer = GetComponent<SpriteRenderer> ();
 		myPlayerShoot = GetComponent<PlayerShoot> ();
 		myPlayerGrabO = GetComponent<PlayerGrabObject> ();
+
+		myStunRecoveryTime = stunRecoveryTime;
 	}
 
 	void FixedUpdate () {
@@ -36,11 +41,11 @@ public class PlayerController : MonoBehaviour {
 			CheckIfIsGrounded ();
 
 			if (onStun) {
-				stunRecovery -= Time.fixedTime;
+				myStunRecoveryTime -= Time.fixedTime;
 
-				if (stunRecovery <= 0.0f) {
+				if (myStunRecoveryTime <= 0.0f) {
 					onStun = false;
-					stunRecovery = 0.5f;
+					myStunRecoveryTime = stunRecoveryTime;
 				}
 					
 			} else {
@@ -56,6 +61,7 @@ public class PlayerController : MonoBehaviour {
 
 		UpdateAnimationController ();
 
+		//DEBUG
 		if (Input.GetKeyDown (KeyCode.T)) {
 			Debug.Log ("add force to rigidb");
 			myRigidbody.AddForce (Vector2.right * 2000.0f, ForceMode2D.Force);
@@ -66,22 +72,28 @@ public class PlayerController : MonoBehaviour {
 	{
 		if (PlayerState.HP > 0.0f) {
 			if (col.gameObject.tag == "Enemy" && col.contacts [0].normal.y > 0) {
-				col.gameObject.GetComponent<ZombieController> ().ReceiveDamage (1.0f);
+				col.gameObject.GetComponent<ZombieController> ().ReceiveDamage (smashEnemyHeadDamage);
 			}
 		}
 	}
 
 	private void HandleMove(float horizontal, float jump) {
-		float velocityOnYAxis = 0.0f;
+		float velocityY = 0.0f;
+		float velocityX = 0.0f;
 
 		if (jump > 0 && PlayerState.isOnGround) {
-			velocityOnYAxis = jumpForce;
+			velocityY = jumpForce;
 		} else {
-			velocityOnYAxis = myRigidbody.velocity.y;
+			velocityY = myRigidbody.velocity.y;
 		}
 
-		myRigidbody.velocity = new Vector2 (horizontal * horizontalSpeed , velocityOnYAxis);
-		//myRigidbody.AddForce(new Vector2 (horizontal * horizontalSpeed , velocityOnYAxis), ForceMode2D.Impulse);
+		if (horizontal != 0.0f) {
+			velocityX = horizontal * horizontalSpeed;
+		} else {
+			velocityX = myRigidbody.velocity.x;
+		}
+
+		myRigidbody.velocity = new Vector2 (velocityX , velocityY);
 
 		PlayerState.horizontalDirection = horizontal;
 	}
@@ -133,15 +145,15 @@ public class PlayerController : MonoBehaviour {
 
 	public void ReceiveImpact(Vector2 point, float force)
 	{
-		Debug.LogFormat ("Me estan pegando una piña!! {0}", force);
+		Debug.LogFormat ("PlayerController.ReceiveImpact - player is receiving an impact - force to apply:{0}", force);
 
-		Vector2 resultForce = new Vector2 (point.x * -1 * force, 500);
+		Vector2 resultForce = new Vector2 (point.x * -1 * force, impactVerticalForce);
 
-		Debug.Log (resultForce);
-
-		myRigidbody.AddForce (resultForce, ForceMode2D.Force);
+		Debug.LogFormat ("PlayerController.ReceiveImpact - player will be hit by a force vector: {0}", resultForce);
 
 		onStun = true;
-		//myRigidbody.velocity += resultForce;
+		myStunRecoveryTime = stunRecoveryTime;
+
+		myRigidbody.AddForce (resultForce);
 	}
 }

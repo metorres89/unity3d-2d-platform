@@ -15,6 +15,8 @@ public class ZombieController : MonoBehaviour {
 
 	public float HP = 1.0f;
 	public float movementSpeed = 2.0f;
+	public float attackForce = 2000.0f;
+	public float attackDamage = 1.0f;
 
 	void Awake()
 	{
@@ -89,7 +91,7 @@ public class ZombieController : MonoBehaviour {
 
 	private void Attack(GameObject target, Vector2 attackPoint){
 
-		Debug.Log ("zombie is attacking!");
+		Debug.Log ("ZombieController.Attack");
 
 		if (	(movementDirection == Vector2.right && Mathf.Approximately(attackPoint.x, 1.0f)) || 
 			(movementDirection == Vector2.left && Mathf.Approximately(attackPoint.x, -1.0f))	
@@ -101,8 +103,8 @@ public class ZombieController : MonoBehaviour {
 		myAnimator.SetBool ("isAttacking", true);
 
 		PlayerController pc = target.GetComponent<PlayerController> ();
-		pc.ReceiveDamage (1.0f);
-		pc.ReceiveImpact (attackPoint, 2000.0f);
+		pc.ReceiveDamage (attackDamage);
+		pc.ReceiveImpact (attackPoint, attackForce);
 	}
 
 	private void ResetMovementLimits(){
