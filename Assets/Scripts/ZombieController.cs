@@ -48,7 +48,9 @@ public class ZombieController : MonoBehaviour {
 		if (HP > 0) {
 
 			if (col.gameObject.tag == "ground" && col.contacts [0].collider.sharedMaterial == null) {
-				
+
+				Debug.LogFormat ("ZombieController.OnCollisionEnter2D - I've collisioned to ground! {0}", gameObject.name);
+
 				SetMovementLimits (col.contacts [0]);
 
 			} else if (col.gameObject.tag == "Player") {
@@ -153,13 +155,17 @@ public class ZombieController : MonoBehaviour {
 		HP -= damage;
 
 		if (HP <= 0) {
-			movementDirection = Vector2.zero;
-			myRigidbody.velocity = Vector2.zero;
-			myAnimator.SetBool ("isAttacking", false);
-			myAnimator.SetBool ("isDead", true);
-			myOnLiveCollider.enabled = false;
-			myOnDeadCollider.enabled = true;
-			gameObject.layer = LayerMask.NameToLayer("Handheld");
+			setDeadState ();
 		}
+	}
+
+	private void setDeadState() {
+		movementDirection = Vector2.zero;
+		myRigidbody.velocity = Vector2.zero;
+		myAnimator.SetBool ("isAttacking", false);
+		myAnimator.SetBool ("isDead", true);
+		myOnLiveCollider.enabled = false;
+		myOnDeadCollider.enabled = true;
+		gameObject.layer = LayerMask.NameToLayer("Handheld");
 	}
 }
