@@ -18,6 +18,8 @@ public class ZombieController : MonoBehaviour {
 	public float attackForce = 2000.0f;
 	public float attackDamage = 1.0f;
 
+	public ParticleSystem bloodParticleSystem;
+
 	void Awake()
 	{
 		leftLimit = Vector2.zero;
@@ -29,6 +31,16 @@ public class ZombieController : MonoBehaviour {
 		myOnLiveCollider = gameObject.GetComponent<CapsuleCollider2D> ();
 		myOnDeadCollider = gameObject.GetComponent<BoxCollider2D> ();
 
+	}
+
+	void Start() {
+		if (bloodParticleSystem == null) {
+			GameObject goBloodParticleSystem = gameObject.transform.Find ("BloodParticleSystem").gameObject;
+
+			if (goBloodParticleSystem != null) {
+				bloodParticleSystem = goBloodParticleSystem.GetComponent<ParticleSystem> ();
+			}
+		}
 	}
 	
 	void FixedUpdate () {
@@ -153,6 +165,11 @@ public class ZombieController : MonoBehaviour {
 
 	public void ReceiveDamage(float damage){
 		HP -= damage;
+
+		if (!bloodParticleSystem.isPlaying) {
+			bloodParticleSystem.Clear ();
+			bloodParticleSystem.Play ();
+		}
 
 		if (HP <= 0) {
 			setDeadState ();
