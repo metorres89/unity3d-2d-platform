@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour {
 	public float stunRecoveryTime = 0.5f;
 	public float impactVerticalForce = 500.0f;
 	public float smashEnemyHeadDamage = 1.0f;
+	public float smashEnemyHeadBounceForce = 1000.0f;
 
 	//this properties work checking if character is on ground
 	public Transform groundCheck;
@@ -73,6 +74,8 @@ public class PlayerController : MonoBehaviour {
 		if (PlayerState.HP > 0.0f) {
 			if (col.gameObject.tag == "Enemy" && col.contacts [0].normal.y > 0) {
 				col.gameObject.GetComponent<ZombieController> ().ReceiveDamage (smashEnemyHeadDamage);
+				myRigidbody.AddForce (Vector2.up * smashEnemyHeadBounceForce);
+				myAnimator.SetTrigger ("triggerBounce");
 			}
 		}
 	}
