@@ -111,7 +111,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1926384127893322}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 4.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4553683165806720}
@@ -164,8 +164,8 @@ CapsuleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 2.5, y: 5}
+  m_Offset: {x: -0.1843059, y: -0.052659035}
+  m_Size: {x: 1.6387639, y: 3.5012074}
   m_Direction: 0
 --- !u!95 &95404497828601822
 Animator:
@@ -200,6 +200,7 @@ MonoBehaviour:
   stunRecoveryTime: 0.5
   impactVerticalForce: 500
   smashEnemyHeadDamage: 1
+  smashEnemyHeadBounceForce: 1000
   groundCheck: {fileID: 4553683165806720}
   groundCheckRadius: 0.2
   groundLayer:

@@ -55,8 +55,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1929826767072706}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.45, y: -9.81, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -11, y: 5.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4406476565311490}
@@ -107,9 +107,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -0.05894184, y: -1.955059}
+  m_Offset: {x: 0, y: -1.26}
   serializedVersion: 2
-  m_Size: {x: 5.0125475, y: 0.761153}
+  m_Size: {x: 3.359375, y: 1}
 --- !u!70 &70725742965827746
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
@@ -121,8 +121,8 @@ CapsuleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -0.23520088, y: -0.2554493}
-  m_Size: {x: 2.2473328, y: 4.161399}
+  m_Offset: {x: -0.040878296, y: -0.1737318}
+  m_Size: {x: 2.0817566, y: 3.3474636}
   m_Direction: 0
 --- !u!95 &95063689811570512
 Animator:
@@ -212,7 +212,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -572239015
+  randomSeed: 2101952370
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -2826,7 +2826,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -2874,7 +2874,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d3ce540afb4ce254ca7d6bc6b50da68d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
