@@ -20,7 +20,7 @@ public class PlayerGrabObject : MonoBehaviour {
 	}
 
 	void Start () {
-		handheldCheck = gameObject.transform.Find ("GroundCheck").transform;
+		handheldCheck = gameObject.transform.Find ("GroundCheck");
 	}
 
 	void FixedUpdate () {

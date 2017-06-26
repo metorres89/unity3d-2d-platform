@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour {
 
 	public float lazerLength = 10.0f;
-	public GameObject lazerOrigin;
+	public Transform lazerOrigin;
 	public GameObject player;
 	public float lazerDelay = 0.5f;
 
@@ -14,8 +14,15 @@ public class PlayerShoot : MonoBehaviour {
 	private float lazerTimer;
 
 	void Start(){
-		lazerOrigin = gameObject.transform.Find ("LazerOrigin").gameObject;
-		offset = lazerOrigin.transform.position - player.transform.position;
+
+		if (lazerOrigin == null) {
+			lazerOrigin = gameObject.transform.Find ("LazerOrigin");
+		}
+
+		if (lazerOrigin != null && player != null) {
+			offset = lazerOrigin.position - player.transform.position;
+		}
+
 		lazerTimer = lazerDelay;
 	}
 
@@ -46,7 +53,7 @@ public class PlayerShoot : MonoBehaviour {
 
 		Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
 
-		Vector2 rayOrigin = new Vector2 (lazerOrigin.transform.position.x, lazerOrigin.transform.position.y);
+		Vector2 rayOrigin = new Vector2 (lazerOrigin.position.x, lazerOrigin.position.y);
 		Vector2 rayDestiny = new Vector2 (worldPos.x, worldPos.y);
 
 		if(( !myFlipX && rayDestiny.x > rayOrigin.x) || (myFlipX && rayDestiny.x < rayOrigin.x) ){
@@ -54,7 +61,7 @@ public class PlayerShoot : MonoBehaviour {
 			Vector2 rayDirection = rayDestiny - rayOrigin;
 			RaycastHit2D hit = Physics2D.Raycast (rayOrigin, rayDirection);
 
-			//Debug.DrawLine (lazerOrigin.transform.position, worldPos, Color.red, 0.5f);
+			//Debug.DrawLine (lazerOrigin.position, worldPos, Color.red, 0.5f);
 			Debug.DrawRay (rayOrigin, rayDirection, Color.blue, 0.5f);
 
 			if (hit) {
@@ -75,7 +82,7 @@ public class PlayerShoot : MonoBehaviour {
 			else
 				newPos = player.transform.position + offset;
 			
-			lazerOrigin.transform.position = newPos;
+			lazerOrigin.position = newPos;
 		}
 	}
 }

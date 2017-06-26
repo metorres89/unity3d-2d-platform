@@ -35,10 +35,10 @@ public class ZombieController : MonoBehaviour {
 
 	void Start() {
 		if (bloodParticleSystem == null) {
-			GameObject goBloodParticleSystem = gameObject.transform.Find ("BloodParticleSystem").gameObject;
+			Transform t = gameObject.transform.Find ("BloodParticleSystem");
 
-			if (goBloodParticleSystem != null) {
-				bloodParticleSystem = goBloodParticleSystem.GetComponent<ParticleSystem> ();
+			if (t != null) {
+				bloodParticleSystem = t.gameObject.GetComponent<ParticleSystem> ();
 			}
 		}
 	}

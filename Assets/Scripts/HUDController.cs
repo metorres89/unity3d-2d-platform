@@ -12,15 +12,15 @@ public class HUDController : MonoBehaviour {
 	void Start () {
 
 		if (lifeText == null) {
-			GameObject go = gameObject.transform.FindChild ("LifeText").gameObject;
-			if (go != null)
-				lifeText = go.GetComponent<Text> ();
+			Transform t = gameObject.transform.FindChild ("LifeText");
+			if (t != null)
+				lifeText = t.gameObject.GetComponent<Text> ();
 		}
 
 		if (scoreText == null) {
-			GameObject go = gameObject.transform.Find ("ScoreText").gameObject;
-			if (go != null)
-				scoreText = go.GetComponent<Text> ();
+			Transform t = gameObject.transform.Find ("ScoreText");
+			if (t != null)
+				scoreText = t.gameObject.GetComponent<Text> ();
 		}
 	}
 	

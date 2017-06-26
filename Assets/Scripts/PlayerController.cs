@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour {
 	private SpriteRenderer mySpriteRenderer;
 	private PlayerShoot myPlayerShoot;
 	private PlayerGrabObject myPlayerGrabO;
+	private FXAudioSourceController myFXAudioSourceController;
+
 	private bool onStun = false;
 	private float myStunRecoveryTime = 0.0f;
 
@@ -25,14 +27,27 @@ public class PlayerController : MonoBehaviour {
 	public float groundCheckRadius = 0.2f;
 	public LayerMask groundLayer;
 
+	public AudioClip jumpClip;
+	public AudioClip receiveImpactClip;
+	public AudioClip powerUpClip;
+	public AudioClip scoreClip;
+	//public AudioClip shootClip;
+	public AudioClip deadClip;
+
 	void Start () {
 		myRigidbody = GetComponent<Rigidbody2D> ();
-		groundCheck = gameObject.transform.Find ("GroundCheck").transform;
+		groundCheck = gameObject.transform.Find ("GroundCheck");
 
 		myAnimator = GetComponent<Animator> ();
 		mySpriteRenderer = GetComponent<SpriteRenderer> ();
 		myPlayerShoot = GetComponent<PlayerShoot> ();
 		myPlayerGrabO = GetComponent<PlayerGrabObject> ();
+
+		if (myFXAudioSourceController == null) {
+			Transform t = Camera.main.transform.Find ("FXAudioSource");
+			if (t != null)
+				myFXAudioSourceController = t.gameObject.GetComponent<FXAudioSourceController> ();
+		}
 
 		myStunRecoveryTime = stunRecoveryTime;
 	}
@@ -76,6 +91,8 @@ public class PlayerController : MonoBehaviour {
 				col.gameObject.GetComponent<ZombieController> ().ReceiveDamage (smashEnemyHeadDamage);
 				myRigidbody.AddForce (Vector2.up * smashEnemyHeadBounceForce);
 				myAnimator.SetTrigger ("triggerBounce");
+
+				myFXAudioSourceController.playClip (scoreClip, 0.5f);
 			}
 		}
 	}
@@ -86,6 +103,9 @@ public class PlayerController : MonoBehaviour {
 
 		if (jump > 0 && PlayerState.isOnGround) {
 			velocityY = jumpForce;
+
+			myFXAudioSourceController.playClip (jumpClip, 0.5f);
+
 		} else {
 			velocityY = myRigidbody.velocity.y;
 		}
@@ -139,11 +159,15 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void ReceiveDamage(float damage) {
+
 		PlayerState.HP -= damage;
 
 		if (PlayerState.HP <= 0) {
 			PlayerState.isDead = true;
+
+			myFXAudioSourceController.playClip (deadClip, 0.5f);
 		}
+
 	}
 
 	public void ReceiveImpact(Vector2 point, float force)
@@ -158,5 +182,7 @@ public class PlayerController : MonoBehaviour {
 		myStunRecoveryTime = stunRecoveryTime;
 
 		myRigidbody.AddForce (resultForce);
+
+		myFXAudioSourceController.playClip (receiveImpactClip, 0.5f);
 	}
 }
