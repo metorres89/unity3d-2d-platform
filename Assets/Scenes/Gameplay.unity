@@ -2011,6 +2011,7 @@ GameObject:
   - component: {fileID: 96851719}
   - component: {fileID: 96851722}
   - component: {fileID: 96851718}
+  - component: {fileID: 96851723}
   m_Layer: 0
   m_Name: Saw
   m_TagString: Untagged
@@ -2045,7 +2046,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -2094,7 +2095,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 96851717}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.387894, y: -6.1883535, z: 0}
+  m_LocalPosition: {x: -6.39, y: -19.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2109,7 +2110,18 @@ ConstantForce2D:
   m_Enabled: 1
   m_Force: {x: 0, y: 0}
   m_RelativeForce: {x: 0, y: 0}
-  m_Torque: 1
+  m_Torque: 20
+--- !u!114 &96851723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 96851717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25836c609159a94fb47179c76251eaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &97793140
 GameObject:
   m_ObjectHideFlags: 0
