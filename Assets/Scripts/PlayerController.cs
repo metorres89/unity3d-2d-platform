@@ -159,15 +159,15 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void ReceiveDamage(float damage) {
+		if (!onStun) {
+			PlayerState.HP -= damage;
 
-		PlayerState.HP -= damage;
+			if (PlayerState.HP <= 0) {
+				PlayerState.isDead = true;
 
-		if (PlayerState.HP <= 0) {
-			PlayerState.isDead = true;
-
-			myFXAudioSourceController.playClip (deadClip, 0.5f);
+				myFXAudioSourceController.playClip (deadClip, 0.5f);
+			}
 		}
-
 	}
 
 	public void ReceiveImpact(Vector2 point, float force)
