@@ -10,8 +10,6 @@ public class PlayerController : MonoBehaviour {
 	private SpriteRenderer mySpriteRenderer;
 	private PlayerShoot myPlayerShoot;
 	private PlayerGrabObject myPlayerGrabO;
-	private FXAudioSourceController myFXAudioSourceController;
-
 	private bool onStun = false;
 	private float myStunRecoveryTime = 0.0f;
 
@@ -27,13 +25,6 @@ public class PlayerController : MonoBehaviour {
 	public float groundCheckRadius = 0.2f;
 	public LayerMask groundLayer;
 
-	public AudioClip jumpClip;
-	public AudioClip receiveImpactClip;
-	public AudioClip powerUpClip;
-	public AudioClip scoreClip;
-	//public AudioClip shootClip;
-	public AudioClip deadClip;
-
 	void Start () {
 		myRigidbody = GetComponent<Rigidbody2D> ();
 		groundCheck = gameObject.transform.Find ("GroundCheck");
@@ -42,12 +33,6 @@ public class PlayerController : MonoBehaviour {
 		mySpriteRenderer = GetComponent<SpriteRenderer> ();
 		myPlayerShoot = GetComponent<PlayerShoot> ();
 		myPlayerGrabO = GetComponent<PlayerGrabObject> ();
-
-		if (myFXAudioSourceController == null) {
-			Transform t = Camera.main.transform.Find ("FXAudioSource");
-			if (t != null)
-				myFXAudioSourceController = t.gameObject.GetComponent<FXAudioSourceController> ();
-		}
 
 		myStunRecoveryTime = stunRecoveryTime;
 	}
@@ -92,7 +77,7 @@ public class PlayerController : MonoBehaviour {
 				myRigidbody.AddForce (Vector2.up * smashEnemyHeadBounceForce);
 				myAnimator.SetTrigger ("triggerBounce");
 
-				myFXAudioSourceController.playClip (scoreClip, 0.5f);
+				FXAudio.playClip("PickupCoin", 0.5f);
 			}
 		}
 	}
@@ -104,7 +89,7 @@ public class PlayerController : MonoBehaviour {
 		if (jump > 0 && PlayerState.isOnGround) {
 			velocityY = jumpForce;
 
-			myFXAudioSourceController.playClip (jumpClip, 0.5f);
+			FXAudio.playClip("Jump", 0.5f);
 
 		} else {
 			velocityY = myRigidbody.velocity.y;
@@ -165,7 +150,7 @@ public class PlayerController : MonoBehaviour {
 			if (PlayerState.HP <= 0) {
 				PlayerState.isDead = true;
 
-				myFXAudioSourceController.playClip (deadClip, 0.5f);
+				FXAudio.playClip("Explosion", 0.5f);
 			}
 		}
 	}
@@ -183,6 +168,6 @@ public class PlayerController : MonoBehaviour {
 
 		myRigidbody.AddForce (resultForce);
 
-		myFXAudioSourceController.playClip (receiveImpactClip, 0.5f);
+		FXAudio.playClip("Hit", 0.5f);
 	}
 }

@@ -61,8 +61,6 @@ public class ZombieController : MonoBehaviour {
 
 			if (col.gameObject.tag == "ground" && col.contacts [0].collider.sharedMaterial == null) {
 
-				Debug.LogFormat ("ZombieController.OnCollisionEnter2D - I've collisioned to ground! {0}", gameObject.name);
-
 				SetMovementLimits (col.contacts [0]);
 
 			} else if (col.gameObject.tag == "Player") {
@@ -81,12 +79,13 @@ public class ZombieController : MonoBehaviour {
 				Flip ();
 			}
 		}
+
+		FXAudio.playClip ("Hit", 0.5f);
 	}
 
 	void OnCollisionStay2D(Collision2D col) {
 		if (HP <= 0) {
 			if (gameObject.layer == LayerMask.NameToLayer ("ThrownObject") && myRigidbody.velocity == Vector2.zero) {
-				Debug.Log ("return to Handheld!!!");
 				gameObject.layer = LayerMask.NameToLayer ("Handheld");
 			}
 		}
@@ -104,12 +103,7 @@ public class ZombieController : MonoBehaviour {
 	}
 
 	private void Attack(GameObject target, Vector2 attackPoint){
-
-		Debug.Log ("ZombieController.Attack");
-
-		if (	(movementDirection == Vector2.right && Mathf.Approximately(attackPoint.x, 1.0f)) || 
-			(movementDirection == Vector2.left && Mathf.Approximately(attackPoint.x, -1.0f))	
-		) {
+		if ((movementDirection == Vector2.right && Mathf.Approximately(attackPoint.x, 1.0f)) || (movementDirection == Vector2.left && Mathf.Approximately(attackPoint.x, -1.0f))) {
 			Flip ();
 		}
 

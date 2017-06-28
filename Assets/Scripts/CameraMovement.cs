@@ -8,7 +8,10 @@ public class CameraMovement : MonoBehaviour {
 	private Vector3 offset;
 
 	void Start () {
-		offset = transform.position - player.transform.position;	
+
+		FXAudio.Init ();
+
+		offset = transform.position - player.transform.position;
 	}
 
 	void LateUpdate () {
