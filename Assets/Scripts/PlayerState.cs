@@ -5,6 +5,7 @@ public static class PlayerState
 	//stats
 	public static float HP = 3.0f;
 	public static int killedEnemies = 0;
+	public static int score = 0;
 
 	//animation flags
 	public static float horizontalDirection = 0.0f;

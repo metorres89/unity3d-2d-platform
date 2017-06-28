@@ -7,6 +7,7 @@ TagManager:
   - ground
   - Enemy
   - Obstacle
+  - Gem
   layers:
   - Default
   - TransparentFX
@@ -16,14 +17,14 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Gem
   - Player
   - Enemies
   - TrampMortal
   - Ground
   - Handheld
   - ThrownObject
-  - 
+  - ScoreItem
   - 
   - 
   - 

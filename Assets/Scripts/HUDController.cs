@@ -7,6 +7,7 @@ public class HUDController : MonoBehaviour {
 	
 	public Text lifeText;
 	public Text scoreText;
+	public Text killsText;
 
 	// Use this for initialization
 	void Start () {
@@ -22,6 +23,12 @@ public class HUDController : MonoBehaviour {
 			if (t != null)
 				scoreText = t.gameObject.GetComponent<Text> ();
 		}
+
+		if (killsText == null) {
+			Transform t = gameObject.transform.Find ("KillsText");
+			if (t != null)
+				killsText = t.gameObject.GetComponent<Text> ();
+		}
 	}
 	
 	// Update is called once per frame
@@ -30,6 +37,9 @@ public class HUDController : MonoBehaviour {
 			lifeText.text = string.Format ("Lifes: {0}", PlayerState.HP);
 
 		if (scoreText != null)
-			scoreText.text = string.Format ("Score: {0}", PlayerState.killedEnemies);
+			scoreText.text = string.Format ("Score: {0}", PlayerState.score);
+
+		if (killsText != null)
+			killsText.text = string.Format ("Kills: {0}", PlayerState.killedEnemies);
 	}
 }
