@@ -61,22 +61,28 @@ public class ExitDoorController : MonoBehaviour {
 	void OnTriggerStay2D(Collider2D col) {
 		if (col.gameObject.tag == "Player") {
 			
-			if (Input.GetAxis ("Fire2") != 0.0f && axisInUse == false && currentState == DoorState.LOCKED) {
+			if (Input.GetAxis ("Fire2") != 0.0f && axisInUse == false) {
 
 				axisInUse = true;
 
-				bool tryToUnlock = TryToUnlock ();
+				if (currentState == DoorState.LOCKED) {
+					bool tryToUnlock = TryToUnlock ();
 
-				Debug.LogFormat ("Player is trying to unlock the door , the result: {0}", tryToUnlock);
+					Debug.LogFormat ("Player is trying to unlock the door , the result: {0}", tryToUnlock);
 
-				if (tryToUnlock) {
-					setState (DoorState.UNLOCKED);
+					if (tryToUnlock) {
+						setState (DoorState.UNLOCKED);
 
-					FXAudio.playClip ("DoorUnlocked", 0.5f);
+						FXAudio.playClip ("DoorUnlocked", 0.5f);
 				
-				} else {
+					} else {
 					
-					FXAudio.playClip ("DoorLocked", 0.5f);
+						FXAudio.playClip ("DoorLocked", 0.5f);
+					}
+				} else if (currentState == DoorState.OPEN) {
+					
+					GameState.setState (GameState.ResultType.WIN);
+				
 				}
 			}
 		}

@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
 	private PlayerGrabObject myPlayerGrabO;
 	private bool onStun = false;
 	private float myStunRecoveryTime = 0.0f;
+	private float myGameOverDelay;
 
 	public float horizontalSpeed = 20.0f;
 	public float jumpForce = 20.0f;
@@ -25,6 +26,9 @@ public class PlayerController : MonoBehaviour {
 	public float groundCheckRadius = 0.2f;
 	public LayerMask groundLayer;
 
+	//this is a editable float at the inspector section, specify the remaining seconds after dead before the game over scene transition
+	public float gameOverDelay = 2.0f;
+
 	void Start () {
 		myRigidbody = GetComponent<Rigidbody2D> ();
 		groundCheck = gameObject.transform.Find ("GroundCheck");
@@ -35,6 +39,8 @@ public class PlayerController : MonoBehaviour {
 		myPlayerGrabO = GetComponent<PlayerGrabObject> ();
 
 		myStunRecoveryTime = stunRecoveryTime;
+		myGameOverDelay = gameOverDelay;
+
 	}
 
 	void FixedUpdate () {
@@ -58,15 +64,19 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 		if (PlayerState.HP > 0.0f) {
 			CheckFlip ();
+		} else {
+			myGameOverDelay -= Time.deltaTime;
+			Debug.Log ("Player is dead, start countdown to ResultScene!!!");
+
+			if (myGameOverDelay <= 0) {
+
+				Debug.Log ("Player is dead, changing GameState");
+
+				GameState.setState(GameState.ResultType.GAME_OVER);
+			}
 		}
 
 		UpdateAnimationController ();
-
-		//DEBUG
-		if (Input.GetKeyDown (KeyCode.T)) {
-			Debug.Log ("add force to rigidb");
-			myRigidbody.AddForce (Vector2.right * 2000.0f, ForceMode2D.Force);
-		}
 	}
 
 	void OnCollisionEnter2D(Collision2D col)
@@ -149,7 +159,6 @@ public class PlayerController : MonoBehaviour {
 
 			if (PlayerState.HP <= 0) {
 				PlayerState.isDead = true;
-
 				FXAudio.playClip("Explosion", 0.5f);
 			}
 		}
@@ -157,17 +166,10 @@ public class PlayerController : MonoBehaviour {
 
 	public void ReceiveImpact(Vector2 point, float force)
 	{
-		Debug.LogFormat ("PlayerController.ReceiveImpact - player is receiving an impact - force to apply:{0}", force);
-
 		Vector2 resultForce = new Vector2 (point.x * -1 * force, impactVerticalForce);
-
-		Debug.LogFormat ("PlayerController.ReceiveImpact - player will be hit by a force vector: {0}", resultForce);
-
 		onStun = true;
 		myStunRecoveryTime = stunRecoveryTime;
-
 		myRigidbody.AddForce (resultForce);
-
 		FXAudio.playClip("Hit", 0.5f);
 	}
 }

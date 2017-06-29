@@ -40,7 +40,6 @@ public class MainMenuController : MonoBehaviour {
 		Debug.Log ("execute transition to gameplay scene!");
 
 		SceneManager.LoadScene ("Gameplay", LoadSceneMode.Single);
-
 	}
 
 	private void showSettings() {
