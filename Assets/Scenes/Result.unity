@@ -277,6 +277,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01a04514f30780744a8c25638749e7e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gemScoreText: {fileID: 0}
+  killScoreText: {fileID: 0}
+  timeScoreText: {fileID: 0}
+  totalScoreText: {fileID: 0}
 --- !u!1 &354930329
 GameObject:
   m_ObjectHideFlags: 0
@@ -1495,6 +1499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3323f4da79d99d84fb15d9ab31f500d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  titleText: {fileID: 195409602}
 --- !u!1 &2136318476
 GameObject:
   m_ObjectHideFlags: 0

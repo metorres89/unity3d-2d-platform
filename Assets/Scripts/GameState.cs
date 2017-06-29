@@ -9,7 +9,7 @@ public static class GameState
 	{
 		GAME_OVER,
 		WIN,
-		UNDEFINED
+		INITIAL
 	};
 
 	private static int gemScore = 0;
@@ -18,9 +18,9 @@ public static class GameState
 	private static int timeSecondScore = 0;
 	private static int totalScore = 0;
 
-	private static ResultType currentState = ResultType.UNDEFINED;
+	private static ResultType currentState = ResultType.INITIAL;
 
-	public static void setState(ResultType newState) {
+	public static void setState(ResultType newState, string nextScene) {
 
 		Debug.Log ("trying to set State of GameState");
 
@@ -29,14 +29,12 @@ public static class GameState
 			currentState = newState;
 
 			switch (currentState) {
-			case ResultType.UNDEFINED:
-
+			case ResultType.INITIAL:
 				//reset private scores
 				gemScore = 0;
 				killScore = 0;
 				timeMinuteScore = 0;
 				totalScore = 0;
-
 				break;
 			case ResultType.GAME_OVER:
 			case ResultType.WIN:
@@ -49,12 +47,10 @@ public static class GameState
 				timeSecondScore = ((int)PlayerState.remainingTime % 60) * 15;
 
 				totalScore = gemScore + killScore + timeMinuteScore + timeSecondScore;
-
-				Debug.Log ("Trying to make transition to ResultScene!!!");
-
-				SceneManager.LoadScene ("ResultScene", LoadSceneMode.Single);
 				break;
 			}
+
+			SceneManager.LoadScene (nextScene, LoadSceneMode.Single);
 		}
 	}
 

@@ -26,6 +26,6 @@ public class TimeController : MonoBehaviour {
 	}
 
 	void TimeOut() {
-		GameState.setState(GameState.ResultType.GAME_OVER);
+		GameState.setState(GameState.ResultType.GAME_OVER, "Result");
 	}
 }

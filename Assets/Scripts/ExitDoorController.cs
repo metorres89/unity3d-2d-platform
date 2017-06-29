@@ -81,7 +81,7 @@ public class ExitDoorController : MonoBehaviour {
 					}
 				} else if (currentState == DoorState.OPEN) {
 					
-					GameState.setState (GameState.ResultType.WIN);
+					GameState.setState (GameState.ResultType.WIN, "Result");
 				
 				}
 			}

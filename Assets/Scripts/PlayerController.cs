@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour {
 
 				Debug.Log ("Player is dead, changing GameState");
 
-				GameState.setState(GameState.ResultType.GAME_OVER);
+				GameState.setState(GameState.ResultType.GAME_OVER, "Result");
 			}
 		}
 

@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ResultPanelController : MonoBehaviour {
 	public Text titleText;
+	public Button restartButton;
+	public Button mainMenuButton;
 
 	// Use this for initialization
 	void Start () {
@@ -14,7 +17,25 @@ public class ResultPanelController : MonoBehaviour {
 				titleText = t.gameObject.GetComponent<Text> ();
 		}
 
+		if (restartButton == null) {
+			Transform t = gameObject.transform.Find ("RestartButton");
+			if (t != null)
+				restartButton = t.gameObject.GetComponent<Button> ();
+		}
+
+		if (mainMenuButton == null) {
+			Transform t = gameObject.transform.Find ("MainMenuButton");
+			if (t != null)
+				mainMenuButton = t.gameObject.GetComponent<Button> ();
+		}
+
 		updateText ();
+
+		if(restartButton != null)
+			restartButton.onClick.AddListener (restart);
+
+		if(mainMenuButton != null)
+			mainMenuButton.onClick.AddListener (mainMenu);
 	}
 
 	private void updateText() {
@@ -25,5 +46,17 @@ public class ResultPanelController : MonoBehaviour {
 				titleText.text = "You WIN :)";
 			}
 		}
+	}
+
+	private void restart(){
+		Debug.Log ("restarting game!!!");
+
+		PlayerState.reset ();
+		GameState.setState (GameState.ResultType.INITIAL, "Gameplay");
+	}
+
+	private void mainMenu(){
+		PlayerState.reset ();
+		GameState.setState (GameState.ResultType.INITIAL, "MainMenu");
 	}
 }
