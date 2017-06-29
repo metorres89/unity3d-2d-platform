@@ -8,6 +8,9 @@ TagManager:
   - Enemy
   - Obstacle
   - Gem
+  - ExitDoorSwitch
+  - Door
+  - Switch
   layers:
   - Default
   - TransparentFX
@@ -25,7 +28,7 @@ TagManager:
   - Handheld
   - ThrownObject
   - ScoreItem
-  - 
+  - UsableEnviromentObject
   - 
   - 
   - 
