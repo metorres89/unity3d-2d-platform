@@ -3,27 +3,27 @@
 public static class PlayerState
 {
 	//stats
-	public static float HP = 3.0f;
-	public static int killedEnemies = 0;
-	public static int score = 0;
-	public static float remainingTime = 0.0f;
+	public static float HealthPoints = 3.0f;
+	public static int KilledEnemies = 0;
+	public static int Score = 0;
+	public static float RemainingTime = 0.0f;
 
 	//animation flags
-	public static float horizontalDirection = 0.0f;
-	public static bool isOnGround = false;
-	public static bool isShooting = false;
-	public static bool isDead = false;
+	public static float HorizontalDirection = 0.0f;
+	public static bool IsOnGround = false;
+	public static bool IsShooting = false;
+	public static bool IsDead = false;
 
-	public static void reset() {
-		HP = 3.0f;
-		killedEnemies = 0;
-		score = 0;
-		remainingTime = 0.0f;
+	public static void Reset() {
+		HealthPoints = 3.0f;
+		KilledEnemies = 0;
+		Score = 0;
+		RemainingTime = 0.0f;
 
-		horizontalDirection = 0.0f;
-		isOnGround = false;
-		isShooting = false;
-		isDead = false;
+		HorizontalDirection = 0.0f;
+		IsOnGround = false;
+		IsShooting = false;
+		IsDead = false;
 	}
 
 }

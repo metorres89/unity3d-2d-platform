@@ -29,7 +29,7 @@ public class PlayerShoot : MonoBehaviour {
 	void Update () {
 
 		if (Input.GetMouseButton (0)) {
-			PlayerState.isShooting = true;
+			PlayerState.IsShooting = true;
 
 			if (lazerTimer <= 0) {
 				ComputeShoot ();
@@ -40,7 +40,7 @@ public class PlayerShoot : MonoBehaviour {
 		}
 
 		if (Input.GetMouseButtonUp (0)) {
-			PlayerState.isShooting = false;
+			PlayerState.IsShooting = false;
 		}
 
 	}

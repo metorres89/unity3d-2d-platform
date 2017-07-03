@@ -179,6 +179,6 @@ public class ZombieController : MonoBehaviour {
 		myOnDeadCollider.enabled = true;
 		gameObject.layer = LayerMask.NameToLayer("Handheld");
 
-		PlayerState.killedEnemies++;
+		PlayerState.KilledEnemies++;
 	}
 }

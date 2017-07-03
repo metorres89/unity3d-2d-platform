@@ -12,15 +12,15 @@ public static class GameState
 		INITIAL
 	};
 
-	private static int gemScore = 0;
-	private static int killScore = 0;
-	private static int timeMinuteScore = 0;
-	private static int timeSecondScore = 0;
-	private static int totalScore = 0;
+	private static int GemScore = 0;
+	private static int KillScore = 0;
+	private static int TimeMinuteScore = 0;
+	private static int TimeSecondScore = 0;
+	private static int TotalScore = 0;
 
 	private static ResultType currentState = ResultType.INITIAL;
 
-	public static void setState(ResultType newState, string nextScene) {
+	public static void SetState(ResultType newState, string nextScene) {
 
 		Debug.Log ("trying to set State of GameState");
 
@@ -31,22 +31,22 @@ public static class GameState
 			switch (currentState) {
 			case ResultType.INITIAL:
 				//reset private scores
-				gemScore = 0;
-				killScore = 0;
-				timeMinuteScore = 0;
-				totalScore = 0;
+				GemScore = 0;
+				KillScore = 0;
+				TimeMinuteScore = 0;
+				TotalScore = 0;
 				break;
 			case ResultType.GAME_OVER:
 			case ResultType.WIN:
 				
 				//calculate final scores
 
-				gemScore = PlayerState.score;
-				killScore = PlayerState.killedEnemies * 2000;
-				timeMinuteScore = ((int)PlayerState.remainingTime / 60) * 1000;
-				timeSecondScore = ((int)PlayerState.remainingTime % 60) * 15;
+				GemScore = PlayerState.Score;
+				KillScore = PlayerState.KilledEnemies * 2000;
+				TimeMinuteScore = ((int)PlayerState.RemainingTime / 60) * 1000;
+				TimeSecondScore = ((int)PlayerState.RemainingTime % 60) * 15;
 
-				totalScore = gemScore + killScore + timeMinuteScore + timeSecondScore;
+				TotalScore = GemScore + KillScore + TimeMinuteScore + TimeSecondScore;
 				break;
 			}
 
@@ -54,27 +54,27 @@ public static class GameState
 		}
 	}
 
-	public static ResultType getCurrentState() {
+	public static ResultType GetCurrentState() {
 		return currentState;
 	}
 
-	public static int getGemScore(){
-		return gemScore;
+	public static int GetGemScore(){
+		return GemScore;
 	}
 
-	public static int getKillScore() {
-		return killScore;
+	public static int GetKillScore() {
+		return KillScore;
 	}
 
-	public static int getTimeMinuteScore() {
-		return timeMinuteScore;
+	public static int GetTimeMinuteScore() {
+		return TimeMinuteScore;
 	}
 
-	public static int getTimeSecondScore() {
-		return timeSecondScore;
+	public static int GetTimeSecondScore() {
+		return TimeSecondScore;
 	}
 
-	public static int getTotalScore() {
-		return totalScore;
+	public static int GetTotalScore() {
+		return TotalScore;
 	}
 }

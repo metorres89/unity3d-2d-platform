@@ -41,19 +41,19 @@ public class ScorePanelController : MonoBehaviour {
 
 	private void updateText() {
 		if (gemScoreText != null) {
-			gemScoreText.text = GameState.getGemScore ().ToString();
+			gemScoreText.text = GameState.GetGemScore ().ToString();
 		}
 
 		if (killScoreText != null) {
-			killScoreText.text = GameState.getKillScore ().ToString();
+			killScoreText.text = GameState.GetKillScore ().ToString();
 		}
 
 		if (timeScoreText != null) {
-			timeScoreText.text = string.Format("score x minutes: {0} \n score x seconds: {1}", GameState.getTimeMinuteScore (), GameState.getTimeSecondScore());
+			timeScoreText.text = string.Format("score x minutes: {0} \n score x seconds: {1}", GameState.GetTimeMinuteScore (), GameState.GetTimeSecondScore());
 		}
 
 		if (totalScoreText != null) {
-			totalScoreText.text = GameState.getTotalScore ().ToString ();
+			totalScoreText.text = GameState.GetTotalScore ().ToString ();
 		}
 	}
 }

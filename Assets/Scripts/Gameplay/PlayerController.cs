@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		if (PlayerState.HP > 0.0f) {
+		if (PlayerState.HealthPoints > 0.0f) {
 			CheckIfIsGrounded ();
 
 			if (onStun) {
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update () {
-		if (PlayerState.HP > 0.0f) {
+		if (PlayerState.HealthPoints > 0.0f) {
 			CheckFlip ();
 		} else {
 			myGameOverDelay -= Time.deltaTime;
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour {
 
 				Debug.Log ("Player is dead, changing GameState");
 
-				GameState.setState(GameState.ResultType.GAME_OVER, "Result");
+				GameState.SetState(GameState.ResultType.GAME_OVER, "Result");
 			}
 		}
 
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		if (PlayerState.HP > 0.0f) {
+		if (PlayerState.HealthPoints > 0.0f) {
 			if (col.gameObject.tag == "Enemy" && col.contacts [0].normal.y > 0) {
 				col.gameObject.GetComponent<ZombieController> ().ReceiveDamage (smashEnemyHeadDamage);
 				myRigidbody.AddForce (Vector2.up * smashEnemyHeadBounceForce);
@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour {
 		float velocityY = 0.0f;
 		float velocityX = 0.0f;
 
-		if (jumpAxis > 0 && PlayerState.isOnGround && jumpAxisInUse == false) {
+		if (jumpAxis > 0 && PlayerState.IsOnGround && jumpAxisInUse == false) {
 			jumpAxisInUse = true;
 			velocityY = jumpForce;
 			FXAudio.PlayClip ("Jump", 0.5f);
@@ -133,12 +133,12 @@ public class PlayerController : MonoBehaviour {
 
 		myRigidbody.velocity = new Vector2 (velocityX , velocityY);
 
-		PlayerState.horizontalDirection = horizontalAxis;
+		PlayerState.HorizontalDirection = horizontalAxis;
 	}
 
 	private void CheckIfIsGrounded() {
 
-		PlayerState.isOnGround = false;
+		PlayerState.IsOnGround = false;
 
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
 		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
@@ -146,23 +146,23 @@ public class PlayerController : MonoBehaviour {
 		for (int i = 0; i < colliders.Length; i++)
 		{
 			if (colliders[i].gameObject != gameObject)
-				PlayerState.isOnGround = true;
+				PlayerState.IsOnGround = true;
 		}
 
 	}
 
 	private void UpdateAnimationController()
 	{
-		myAnimator.SetFloat ("horizontalSpeed", Mathf.Abs(PlayerState.horizontalDirection));
-		myAnimator.SetBool ("isOnGround", PlayerState.isOnGround);
-		myAnimator.SetBool ("isShooting", PlayerState.isShooting);
-		myAnimator.SetBool ("isDead", PlayerState.isDead);
+		myAnimator.SetFloat ("horizontalSpeed", Mathf.Abs(PlayerState.HorizontalDirection));
+		myAnimator.SetBool ("isOnGround", PlayerState.IsOnGround);
+		myAnimator.SetBool ("isShooting", PlayerState.IsShooting);
+		myAnimator.SetBool ("isDead", PlayerState.IsDead);
 	}
 
 	private void CheckFlip(){
-		if (PlayerState.horizontalDirection < 0 && mySpriteRenderer.flipX == false) {
+		if (PlayerState.HorizontalDirection < 0 && mySpriteRenderer.flipX == false) {
 			ExecutePlayerFlip (true);
-		} else if (PlayerState.horizontalDirection > 0 && mySpriteRenderer.flipX == true) {
+		} else if (PlayerState.HorizontalDirection > 0 && mySpriteRenderer.flipX == true) {
 			ExecutePlayerFlip (false);
 		}
 	}
@@ -175,10 +175,10 @@ public class PlayerController : MonoBehaviour {
 
 	public void ReceiveDamage(float damage) {
 		if (!onStun) {
-			PlayerState.HP -= damage;
+			PlayerState.HealthPoints -= damage;
 
-			if (PlayerState.HP <= 0) {
-				PlayerState.isDead = true;
+			if (PlayerState.HealthPoints <= 0) {
+				PlayerState.IsDead = true;
 				FXAudio.PlayClip("Explosion", 0.5f);
 			}
 		}

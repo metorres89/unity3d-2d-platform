@@ -14,7 +14,7 @@ public class SpikeTrampController : MonoBehaviour {
 		if (col.gameObject.tag == "Player" && col.contacts [0].normal.y < 0) {
 
 			if (instantKill)
-				currentDamage = PlayerState.HP;
+				currentDamage = PlayerState.HealthPoints;
 			else
 				currentDamage = damage;
 			

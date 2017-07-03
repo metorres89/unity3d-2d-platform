@@ -10,22 +10,22 @@ public class TimeController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		PlayerState.remainingTime = totalTime;
+		PlayerState.RemainingTime = totalTime;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		if(PlayerState.remainingTime > 0.0f)
-			PlayerState.remainingTime -= Time.deltaTime;
+		if(PlayerState.RemainingTime > 0.0f)
+			PlayerState.RemainingTime -= Time.deltaTime;
 
-		if (PlayerState.remainingTime <= 0.0f) {
+		if (PlayerState.RemainingTime <= 0.0f) {
 			TimeOut ();
 		}
 
 	}
 
 	void TimeOut() {
-		GameState.setState(GameState.ResultType.GAME_OVER, "Result");
+		GameState.SetState(GameState.ResultType.GAME_OVER, "Result");
 	}
 }

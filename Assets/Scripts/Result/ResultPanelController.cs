@@ -40,9 +40,9 @@ public class ResultPanelController : MonoBehaviour {
 
 	private void updateText() {
 		if (titleText != null) {
-			if (GameState.getCurrentState() == GameState.ResultType.GAME_OVER) {
+			if (GameState.GetCurrentState() == GameState.ResultType.GAME_OVER) {
 				titleText.text = "Game Over ):";
-			} else if (GameState.getCurrentState() == GameState.ResultType.WIN) {
+			} else if (GameState.GetCurrentState() == GameState.ResultType.WIN) {
 				titleText.text = "You WIN :)";
 			}
 		}
@@ -51,12 +51,12 @@ public class ResultPanelController : MonoBehaviour {
 	private void restart(){
 		Debug.Log ("restarting game!!!");
 
-		PlayerState.reset ();
-		GameState.setState (GameState.ResultType.INITIAL, "Gameplay");
+		PlayerState.Reset ();
+		GameState.SetState (GameState.ResultType.INITIAL, "Gameplay");
 	}
 
 	private void mainMenu(){
-		PlayerState.reset ();
-		GameState.setState (GameState.ResultType.INITIAL, "MainMenu");
+		PlayerState.Reset ();
+		GameState.SetState (GameState.ResultType.INITIAL, "MainMenu");
 	}
 }
