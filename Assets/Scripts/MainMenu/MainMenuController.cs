@@ -28,74 +28,56 @@ public class MainMenuController : MonoBehaviour {
 
 	private void InitMainMenuButtons() {
 		if (startGameButton == null) {
-			Transform t = gameObject.transform.Find ("StartButton");
-			if(t != null)
-				startGameButton = t.gameObject.GetComponent<Button> ();
+			GameObject go = GameObject.Find ("StartButton");
+			if(go != null)
+				startGameButton = go.GetComponent<Button> ();
 		}	
 
 		if (settingsButton == null) {
-			Transform t = gameObject.transform.Find ("SettingsButton");
-			if(t != null)
-				settingsButton = t.gameObject.GetComponent<Button> ();
+			GameObject go = GameObject.Find ("SettingsButton");
+			if(go != null)
+				settingsButton = go.GetComponent<Button> ();
+		}
+
+		startGameButton.onClick.AddListener (LoadGameplayScene);
+		settingsButton.onClick.AddListener (ToggleSettingsPanel);
+	}
+
+	private void InitSettingsPanelAndButtons() {
+		if (settingsPanel == null) {
+			settingsPanel = gameObject.transform.FindIgnoringActiveState ("SettingsPanel");
 		}
 
 		if (fxVolumeSlider == null) {
-			GameObject go = gameObject.transform.FindGameObject ("FxVolumeSlider");
+			GameObject go = gameObject.transform.FindIgnoringActiveState ("FxVolumeSlider");
 			if (go != null) {
 				fxVolumeSlider = go.GetComponent<Slider> ();
 			}
 		}
 
 		if (musicVolumeSlider == null) {
-			GameObject go = gameObject.transform.FindGameObject ("MusicVolumeSlider");
+			GameObject go = gameObject.transform.FindIgnoringActiveState ("MusicVolumeSlider");
 			if (go != null) {
 				musicVolumeSlider = go.GetComponent<Slider> ();
 			}
 		}
 
-		if (startGameButton != null) {
-			startGameButton.onClick.AddListener (LoadGameplayScene);
-		}
-
-		if (settingsButton != null) {
-			settingsButton.onClick.AddListener (ToggleSettingsPanel);
-		}
-
-		if (fxVolumeSlider != null) {
-			fxVolumeSlider.onValueChanged.AddListener (FxVolumeSliderValueChanged);
-		}
-
-		if (musicVolumeSlider != null) {
-			musicVolumeSlider.onValueChanged.AddListener (MusicVolumeSliderValueChanged);
-		}
-
-	}
-
-	private void InitSettingsPanelAndButtons() {
-		if (settingsPanel == null) {
-			settingsPanel = gameObject.transform.FindGameObject ("SettingsPanel");
-		}
-			
 		if (saveButton == null) {
-			GameObject go = GameObject.Find ("SaveButton");
+			GameObject go = gameObject.transform.FindIgnoringActiveState ("SaveButton");
 			if(go != null)
 				saveButton = go.GetComponent<Button> ();
 		}	
 
 		if (discardButton == null) {
-			GameObject go = GameObject.Find ("DiscardButton");
+			GameObject go = gameObject.transform.FindIgnoringActiveState ("DiscardButton");
 			if(go != null)
 				discardButton = go.GetComponent<Button> ();
 		}
 
-		if (saveButton != null) {
-			saveButton.onClick.AddListener (SaveSettings);
-		}
-
-		if (discardButton != null) {
-			discardButton.onClick.AddListener (LoadSettings);
-		}
-
+		saveButton.onClick.AddListener (SaveSettings);
+		discardButton.onClick.AddListener (LoadSettings);
+		fxVolumeSlider.onValueChanged.AddListener (FxVolumeSliderValueChanged);
+		musicVolumeSlider.onValueChanged.AddListener (MusicVolumeSliderValueChanged);
 	}
 
 	private void LoadGameplayScene() {
@@ -103,8 +85,6 @@ public class MainMenuController : MonoBehaviour {
 	}
 
 	private void ToggleSettingsPanel() {
-		Debug.Log ("Toggle settings panel!");
-
 		if (!settingsPanel.activeInHierarchy) {
 			settingsPanel.SetActive (true);
 			LoadSettings ();
@@ -114,8 +94,6 @@ public class MainMenuController : MonoBehaviour {
 	}
 
 	private void SaveSettings() {
-		Debug.Log ("Save Settings!");
-
 		if (fxVolumeSlider != null) {
 			PlayerPrefs.SetFloat ("Audio.Fx.Volume", fxVolumeSlider.value / fxVolumeSlider.maxValue);
 		}

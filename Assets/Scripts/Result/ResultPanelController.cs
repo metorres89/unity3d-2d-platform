@@ -11,6 +11,9 @@ public class ResultPanelController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		
+		MusicAudio.Init ();
+
 		if (titleText == null) {
 			Transform t = gameObject.transform.Find ("TitleText");
 			if (t != null)

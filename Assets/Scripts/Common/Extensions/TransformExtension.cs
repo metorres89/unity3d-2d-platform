@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class TransformExtension
 {
-	public static GameObject FindGameObject(this Transform parent, string name)
+	public static GameObject FindIgnoringActiveState(this Transform parent, string name)
 	{
 		Component[] components = parent.GetComponentsInChildren(typeof(Transform), true);
 		foreach(Component c in components){
