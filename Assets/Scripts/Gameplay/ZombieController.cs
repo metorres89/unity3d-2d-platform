@@ -166,11 +166,11 @@ public class ZombieController : MonoBehaviour {
 		}
 
 		if (HP <= 0) {
-			setDeadState ();
+			SetToDeadState ();
 		}
 	}
 
-	private void setDeadState() {
+	private void SetToDeadState() {
 		movementDirection = Vector2.zero;
 		myRigidbody.velocity = Vector2.zero;
 		myAnimator.SetBool ("isAttacking", false);

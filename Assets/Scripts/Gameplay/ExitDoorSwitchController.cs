@@ -17,7 +17,7 @@ public class ExitDoorSwitchController : MonoBehaviour {
 		myAnimator = gameObject.GetComponent<Animator> ();	
 	}
 	
-	public void setState(bool newState) {
+	public void SetState(bool newState) {
 
 		if (newState != currentState) {
 			currentState = newState;
@@ -26,7 +26,7 @@ public class ExitDoorSwitchController : MonoBehaviour {
 
 	}
 
-	public bool getState() {
+	public bool GetState() {
 		return currentState;
 	}
 
@@ -41,7 +41,7 @@ public class ExitDoorSwitchController : MonoBehaviour {
 
 			if (Input.GetAxisRaw (responsableAxis) != 0.0f && axisInUse == false) {
 				axisInUse = true;
-				setState (!currentState);
+				SetState (!currentState);
 
 				if (currentState) {
 					FXAudio.PlayClip ("SwitchGreen", 0.5f);

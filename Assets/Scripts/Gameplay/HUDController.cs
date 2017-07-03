@@ -50,15 +50,15 @@ public class HUDController : MonoBehaviour {
 			killsText.text = string.Format ("Kills: {0}", PlayerState.KilledEnemies);
 
 		if (timeText != null) {
-			timeText.text = string.Format ("Time remaining: {0}:{1}", parseToMinute (PlayerState.RemainingTime).ToString().PadLeft(2, '0'), parseToSecond (PlayerState.RemainingTime).ToString().PadLeft(2, '0'));
+			timeText.text = string.Format ("Time remaining: {0}:{1}", ParseToMinute (PlayerState.RemainingTime).ToString().PadLeft(2, '0'), ParseToSecond (PlayerState.RemainingTime).ToString().PadLeft(2, '0'));
 		}
 	}
 
-	private int parseToMinute(float time){
+	private int ParseToMinute(float time){
 		return ((int)time) / 60;
 	}
 
-	private int parseToSecond(float time){
+	private int ParseToSecond(float time){
 		return ((int)time) % 60;
 	}
 }

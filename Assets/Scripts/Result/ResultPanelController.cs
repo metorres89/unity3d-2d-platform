@@ -29,16 +29,16 @@ public class ResultPanelController : MonoBehaviour {
 				mainMenuButton = t.gameObject.GetComponent<Button> ();
 		}
 
-		updateText ();
+		UpdateText ();
 
 		if(restartButton != null)
-			restartButton.onClick.AddListener (restart);
+			restartButton.onClick.AddListener (RestartGame);
 
 		if(mainMenuButton != null)
-			mainMenuButton.onClick.AddListener (mainMenu);
+			mainMenuButton.onClick.AddListener (GoToMainMenu);
 	}
 
-	private void updateText() {
+	private void UpdateText() {
 		if (titleText != null) {
 			if (GameState.GetCurrentState() == GameState.ResultType.GAME_OVER) {
 				titleText.text = "Game Over ):";
@@ -48,14 +48,14 @@ public class ResultPanelController : MonoBehaviour {
 		}
 	}
 
-	private void restart(){
+	private void RestartGame(){
 		Debug.Log ("restarting game!!!");
 
 		PlayerState.Reset ();
 		GameState.SetState (GameState.ResultType.INITIAL, "Gameplay");
 	}
 
-	private void mainMenu(){
+	private void GoToMainMenu(){
 		PlayerState.Reset ();
 		GameState.SetState (GameState.ResultType.INITIAL, "MainMenu");
 	}

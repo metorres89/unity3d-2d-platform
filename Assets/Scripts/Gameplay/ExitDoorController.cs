@@ -40,13 +40,13 @@ public class ExitDoorController : MonoBehaviour {
 
 			if (delayOpenDoor <= 0.0f) {
 
-				setState (DoorState.OPEN);
+				SetState (DoorState.OPEN);
 
 			}
 		}
 	}
 
-	private void setState(DoorState newState){
+	private void SetState(DoorState newState){
 		if (newState != currentState) {
 			currentState = newState;
 
@@ -54,7 +54,7 @@ public class ExitDoorController : MonoBehaviour {
 		}
 	}
 
-	public DoorState getState() {
+	public DoorState GetState() {
 		return currentState;
 	}
 
@@ -71,7 +71,7 @@ public class ExitDoorController : MonoBehaviour {
 					Debug.LogFormat ("Player is trying to unlock the door , the result: {0}", tryToUnlock);
 
 					if (tryToUnlock) {
-						setState (DoorState.UNLOCKED);
+						SetState (DoorState.UNLOCKED);
 
 						FXAudio.PlayClip ("DoorUnlocked", 0.5f);
 				
@@ -96,7 +96,7 @@ public class ExitDoorController : MonoBehaviour {
 		foreach (GameObject goSwitch in allSwitches) {
 
 			ExitDoorSwitchController edsc = goSwitch.GetComponent<ExitDoorSwitchController> ();
-			if (edsc.getState ())
+			if (edsc.GetState ())
 				greenSwitches++;
 		}
 

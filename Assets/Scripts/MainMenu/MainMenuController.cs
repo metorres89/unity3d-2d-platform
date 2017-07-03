@@ -10,10 +10,10 @@ public class MainMenuController : MonoBehaviour {
 	public Button settingsButton;
 
 	void Start () {
-		initMainMenuButtons ();
+		InitMainMenuButtons ();
 	}
 
-	private void initMainMenuButtons() {
+	private void InitMainMenuButtons() {
 		if (startGameButton == null) {
 			Transform t = gameObject.transform.Find ("StartButton");
 			if(t != null)
@@ -27,22 +27,22 @@ public class MainMenuController : MonoBehaviour {
 		}
 
 		if (startGameButton != null) {
-			startGameButton.onClick.AddListener (executeTransitionToGameplayScene);
+			startGameButton.onClick.AddListener (LoadGameplayScene);
 		}
 
 		if (settingsButton != null) {
-			settingsButton.onClick.AddListener (showSettings);
+			settingsButton.onClick.AddListener (ShowSettings);
 		}
 	}
 
-	private void executeTransitionToGameplayScene() {
+	private void LoadGameplayScene() {
 
 		Debug.Log ("execute transition to gameplay scene!");
 
 		SceneManager.LoadScene ("Gameplay", LoadSceneMode.Single);
 	}
 
-	private void showSettings() {
+	private void ShowSettings() {
 		Debug.Log ("Show settings panel!");
 	}
 }
