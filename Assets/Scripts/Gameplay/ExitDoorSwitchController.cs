@@ -44,9 +44,9 @@ public class ExitDoorSwitchController : MonoBehaviour {
 				SetState (!currentState);
 
 				if (currentState) {
-					FXAudio.PlayClip ("SwitchGreen", 0.5f);
+					FXAudio.PlayClip ("SwitchGreen");
 				} else {
-					FXAudio.PlayClip ("SwitchRed", 0.5f);
+					FXAudio.PlayClip ("SwitchRed");
 				}
 			}
 

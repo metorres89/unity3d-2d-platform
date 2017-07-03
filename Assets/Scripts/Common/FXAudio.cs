@@ -36,10 +36,10 @@ public static class FXAudio
 		}
 	}
 
-	public static void PlayClip(string clipName, float volume) {
+	public static void PlayClip(string clipName) {
 		if (FxAudioSource != null) {
 			if (AudioClipDictionary.ContainsKey (clipName)) {
-				FxAudioSource.PlayOneShot (AudioClipDictionary [clipName], volume);
+				FxAudioSource.PlayOneShot (AudioClipDictionary [clipName], 0.5f);
 			} else {
 				Debug.LogWarning ("FXAudio - clipName doesn't exists in audioClipDictionay");
 			}

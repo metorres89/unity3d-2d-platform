@@ -34,7 +34,7 @@ public class PlayerShoot : MonoBehaviour {
 			PlayerState.IsShooting = true;
 
 			if (myShootDelay <= 0) {
-				FXAudio.PlayClip ("Shoot", 0.5f);
+				FXAudio.PlayClip ("Shoot");
 				CreateNewBullet();
 				myShootDelay = shootDelay;
 			}

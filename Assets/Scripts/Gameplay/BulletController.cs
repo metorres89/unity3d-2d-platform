@@ -44,7 +44,7 @@ public class BulletController : MonoBehaviour {
 
 		myAnimator.SetTrigger ("Impact");
 
-		FXAudio.PlayClip ("Explosion", 0.5f);
+		FXAudio.PlayClip ("Explosion");
 
 		if (col.gameObject.tag == "Enemy") {
 			ZombieController zc = col.gameObject.GetComponent<ZombieController> ();
