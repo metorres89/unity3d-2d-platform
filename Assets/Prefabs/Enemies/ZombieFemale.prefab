@@ -140,7 +140,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 10, y: 1}
+  m_Size: {x: 15, y: 1}
 --- !u!61 &61548972795725716
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -197,6 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13f325a0cf6e2d947a13f997370bd0eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedUp: 3
 --- !u!114 &114777989688027568
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -209,7 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 1
-  movementSpeed: 2
+  walkingSpeed: 2
   attackForce: 2000
   attackDamage: 1
   bloodParticleSystem: {fileID: 198467677594451670}

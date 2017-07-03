@@ -14,7 +14,7 @@ public class ZombieController : MonoBehaviour {
 	private BoxCollider2D myOnDeadCollider;
 
 	public float healthPoints = 1.0f;
-	public float movementSpeed = 2.0f;
+	public float walkingSpeed = 2.0f;
 	public float attackForce = 2000.0f;
 	public float attackDamage = 1.0f;
 
@@ -30,7 +30,6 @@ public class ZombieController : MonoBehaviour {
 		myAnimator = gameObject.GetComponent<Animator> ();
 		myOnLiveCollider = gameObject.GetComponent<CapsuleCollider2D> ();
 		myOnDeadCollider = gameObject.GetComponent<BoxCollider2D> ();
-
 	}
 
 	void Start() {
@@ -57,9 +56,6 @@ public class ZombieController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
-
-		Debug.LogFormat ("OnCollisionEnter2D {0}", col.gameObject.tag);
-
 		if (healthPoints > 0) {
 
 			if (col.gameObject.tag == "ground" && col.contacts [0].collider.sharedMaterial == null) {
@@ -127,7 +123,7 @@ public class ZombieController : MonoBehaviour {
 		if (leftLimit != Vector2.zero && rightLimit != Vector2.zero && movementDirection != Vector2.zero) {
 
 			if ((movementDirection == Vector2.right && transform.position.x < rightLimit.x) || (movementDirection == Vector2.left && transform.position.x > leftLimit.x)) {
-				myRigidbody.velocity = movementDirection * movementSpeed;
+				myRigidbody.velocity = movementDirection * walkingSpeed;
 			} else {
 				Flip ();
 			}
