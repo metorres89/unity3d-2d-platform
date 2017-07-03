@@ -80,7 +80,7 @@ public class ZombieController : MonoBehaviour {
 			}
 		}
 
-		FXAudio.playClip ("Hit", 0.5f);
+		FXAudio.PlayClip ("Hit", 0.5f);
 	}
 
 	void OnCollisionStay2D(Collision2D col) {

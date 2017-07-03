@@ -4,20 +4,20 @@ using UnityEngine;
 
 public static class FXAudio
 {
-	private static AudioSource fxAudioSource;
-	private static Dictionary<string, AudioClip> audioClipDictionary;
+	private static AudioSource FxAudioSource;
+	private static Dictionary<string, AudioClip> AudioClipDictionary;
 
 	public static void Init() {
-		if (fxAudioSource == null) {
+		if (FxAudioSource == null) {
 			GameObject go = GameObject.Find("FXAudioSource");
 			if (go != null)
-				fxAudioSource = go.GetComponent<AudioSource> ();
+				FxAudioSource = go.GetComponent<AudioSource> ();
 			else
 				Debug.LogWarningFormat ("FXAudio - Init - There is no FXAudioSource GameObject with AudioSource component attached.");
 		}
 
-		if (audioClipDictionary == null) {
-			audioClipDictionary = new Dictionary<string, AudioClip> ();
+		if (AudioClipDictionary == null) {
+			AudioClipDictionary = new Dictionary<string, AudioClip> ();
 			LoadClipsFromResources ("Sounds");
 		}
 
@@ -28,18 +28,18 @@ public static class FXAudio
 		AudioClip[] audioClipArray = Resources.LoadAll<AudioClip> (folderName);
 
 		foreach (AudioClip clip in audioClipArray) {
-			if (!audioClipDictionary.ContainsKey (clip.name)) {
-				audioClipDictionary.Add (clip.name, clip);
+			if (!AudioClipDictionary.ContainsKey (clip.name)) {
+				AudioClipDictionary.Add (clip.name, clip);
 			} else {
 				Debug.LogWarningFormat ("FXAudio - LoadClipsFromResources - Duplicated audioclips on folder: '{0}'", folderName);
 			}
 		}
 	}
 
-	public static void playClip(string clipName, float volume) {
-		if (fxAudioSource != null) {
-			if (audioClipDictionary.ContainsKey (clipName)) {
-				fxAudioSource.PlayOneShot (audioClipDictionary [clipName], volume);
+	public static void PlayClip(string clipName, float volume) {
+		if (FxAudioSource != null) {
+			if (AudioClipDictionary.ContainsKey (clipName)) {
+				FxAudioSource.PlayOneShot (AudioClipDictionary [clipName], volume);
 			} else {
 				Debug.LogWarning ("FXAudio - clipName doesn't exists in audioClipDictionay");
 			}

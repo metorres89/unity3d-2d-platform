@@ -73,11 +73,11 @@ public class ExitDoorController : MonoBehaviour {
 					if (tryToUnlock) {
 						setState (DoorState.UNLOCKED);
 
-						FXAudio.playClip ("DoorUnlocked", 0.5f);
+						FXAudio.PlayClip ("DoorUnlocked", 0.5f);
 				
 					} else {
 					
-						FXAudio.playClip ("DoorLocked", 0.5f);
+						FXAudio.PlayClip ("DoorLocked", 0.5f);
 					}
 				} else if (currentState == DoorState.OPEN) {
 					

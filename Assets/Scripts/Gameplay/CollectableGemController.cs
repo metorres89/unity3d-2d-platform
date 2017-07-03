@@ -9,7 +9,7 @@ public class CollectableGemController : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D col) {
 		if (col.gameObject.tag == "Player" && PlayerState.HP > 0.0f) {
 			PlayerState.score += value;
-			FXAudio.playClip ("PickupCoin", 0.5f);
+			FXAudio.PlayClip ("PickupCoin", 0.5f);
 			Destroy (gameObject);
 		}
 	}

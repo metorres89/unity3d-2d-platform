@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour {
 				myRigidbody.AddForce (Vector2.up * smashEnemyHeadBounceForce);
 				myAnimator.SetTrigger ("triggerBounce");
 
-				FXAudio.playClip("PickupCoin", 0.5f);
+				FXAudio.PlayClip("PickupCoin", 0.5f);
 			}
 		}
 	}
@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour {
 		if (jumpAxis > 0 && PlayerState.isOnGround && jumpAxisInUse == false) {
 			jumpAxisInUse = true;
 			velocityY = jumpForce;
-			FXAudio.playClip ("Jump", 0.5f);
+			FXAudio.PlayClip ("Jump", 0.5f);
 		} else {
 			velocityY = myRigidbody.velocity.y;
 		}
@@ -179,7 +179,7 @@ public class PlayerController : MonoBehaviour {
 
 			if (PlayerState.HP <= 0) {
 				PlayerState.isDead = true;
-				FXAudio.playClip("Explosion", 0.5f);
+				FXAudio.PlayClip("Explosion", 0.5f);
 			}
 		}
 	}
@@ -190,6 +190,6 @@ public class PlayerController : MonoBehaviour {
 		onStun = true;
 		myStunRecoveryTime = stunRecoveryTime;
 		myRigidbody.AddForce (resultForce);
-		FXAudio.playClip("Hit", 0.5f);
+		FXAudio.PlayClip("Hit", 0.5f);
 	}
 }
