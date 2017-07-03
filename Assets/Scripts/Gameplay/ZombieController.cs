@@ -57,6 +57,9 @@ public class ZombieController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
+
+		Debug.LogFormat ("OnCollisionEnter2D {0}", col.gameObject.tag);
+
 		if (healthPoints > 0) {
 
 			if (col.gameObject.tag == "ground" && col.contacts [0].collider.sharedMaterial == null) {
@@ -64,7 +67,7 @@ public class ZombieController : MonoBehaviour {
 				SetMovementLimits (col.contacts [0]);
 
 			} else if (col.gameObject.tag == "Player") {
-
+				
 				if (Mathf.Approximately(col.contacts [0].normal.x, 1.0f) || Mathf.Approximately(col.contacts [0].normal.x, -1.0f) )  {
 					Attack (col.gameObject, col.contacts [0].normal);
 				}
@@ -132,7 +135,7 @@ public class ZombieController : MonoBehaviour {
 		}
 	}
 
-	private void Flip()
+	public void Flip()
 	{
 		if (movementDirection == Vector2.right) {
 			movementDirection = Vector2.left;
@@ -141,6 +144,14 @@ public class ZombieController : MonoBehaviour {
 			movementDirection = Vector2.right;
 			mySpriteRenderer.flipX = false;
 		}
+	}
+
+	public bool IsFlipOnX() {
+		return mySpriteRenderer.flipX;
+	}
+
+	public Vector2 GetMovementDirection(){
+		return movementDirection;
 	}
 
 	private void SetMovementLimits(ContactPoint2D contactPoint)
