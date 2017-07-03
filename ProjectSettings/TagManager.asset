@@ -11,6 +11,7 @@ TagManager:
   - ExitDoorSwitch
   - Door
   - Switch
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - ThrownObject
   - ScoreItem
   - UsableEnviromentObject
-  - 
+  - Bullet
   - 
   - 
   - 

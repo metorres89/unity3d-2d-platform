@@ -50472,11 +50472,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114339857137516476, guid: eb5b03b87e5766442be16facbf91b184,
-        type: 2}
-      propertyPath: fxClipSet.Array.size
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 4543536278923128, guid: eb5b03b87e5766442be16facbf91b184, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -50509,102 +50504,31 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1926384127893322, guid: eb5b03b87e5766442be16facbf91b184, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212137264436725334, guid: eb5b03b87e5766442be16facbf91b184,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 50106453983455262, guid: eb5b03b87e5766442be16facbf91b184,
-        type: 2}
-      propertyPath: m_GravityScale
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114339857137516476, guid: eb5b03b87e5766442be16facbf91b184,
-        type: 2}
-      propertyPath: jumpForce
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4553683165806720, guid: eb5b03b87e5766442be16facbf91b184, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -1.85
-      objectReference: {fileID: 0}
     - target: {fileID: 4230458692613672, guid: eb5b03b87e5766442be16facbf91b184, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.97
-      objectReference: {fileID: 0}
-    - target: {fileID: 4501151325504062, guid: eb5b03b87e5766442be16facbf91b184, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114669340664012910, guid: eb5b03b87e5766442be16facbf91b184,
         type: 2}
-      propertyPath: lazerOrigin
+      propertyPath: bulletOrigin
       value: 
       objectReference: {fileID: 1951219709}
+    - target: {fileID: 114669340664012910, guid: eb5b03b87e5766442be16facbf91b184,
+        type: 2}
+      propertyPath: bulletPrototype
+      value: 
+      objectReference: {fileID: 1346867155495364, guid: 097041c2418090c4eb2eabc39f0618bf,
+        type: 2}
+    - target: {fileID: 114669340664012910, guid: eb5b03b87e5766442be16facbf91b184,
+        type: 2}
+      propertyPath: bulletSpeed
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 114669340664012910, guid: eb5b03b87e5766442be16facbf91b184,
         type: 2}
       propertyPath: player
       value: 
       objectReference: {fileID: 815410610}
-    - target: {fileID: 114339857137516476, guid: eb5b03b87e5766442be16facbf91b184,
-        type: 2}
-      propertyPath: fxClipSet.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 291c54a8b08b1e545aafc376fa05d753, type: 3}
-    - target: {fileID: 114339857137516476, guid: eb5b03b87e5766442be16facbf91b184,
-        type: 2}
-      propertyPath: fxClipSet.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 2c0441ce62ef9894fa2820b9d636448e, type: 3}
-    - target: {fileID: 114339857137516476, guid: eb5b03b87e5766442be16facbf91b184,
-        type: 2}
-      propertyPath: fxClipSet.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 907772b13df9d324bbf761e7b837154e, type: 3}
-    - target: {fileID: 114339857137516476, guid: eb5b03b87e5766442be16facbf91b184,
-        type: 2}
-      propertyPath: fxClipSet.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: f8f52c704771361408be6564b5d30cdc, type: 3}
-    - target: {fileID: 114339857137516476, guid: eb5b03b87e5766442be16facbf91b184,
-        type: 2}
-      propertyPath: fxClipSet.Array.data[4]
-      value: 
-      objectReference: {fileID: 8300000, guid: bd727142c0f902040a099d480100fcd4, type: 3}
-    - target: {fileID: 114339857137516476, guid: eb5b03b87e5766442be16facbf91b184,
-        type: 2}
-      propertyPath: fxClipSet.Array.data[5]
-      value: 
-      objectReference: {fileID: 8300000, guid: 0384de43f6a78d745b451b8a13bd8e9a, type: 3}
-    - target: {fileID: 114339857137516476, guid: eb5b03b87e5766442be16facbf91b184,
-        type: 2}
-      propertyPath: jumpClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 907772b13df9d324bbf761e7b837154e, type: 3}
-    - target: {fileID: 114339857137516476, guid: eb5b03b87e5766442be16facbf91b184,
-        type: 2}
-      propertyPath: receiveImpactClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 2c0441ce62ef9894fa2820b9d636448e, type: 3}
-    - target: {fileID: 114339857137516476, guid: eb5b03b87e5766442be16facbf91b184,
-        type: 2}
-      propertyPath: powerUpClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 0384de43f6a78d745b451b8a13bd8e9a, type: 3}
-    - target: {fileID: 114339857137516476, guid: eb5b03b87e5766442be16facbf91b184,
-        type: 2}
-      propertyPath: scoreClip
-      value: 
-      objectReference: {fileID: 8300000, guid: bd727142c0f902040a099d480100fcd4, type: 3}
-    - target: {fileID: 114339857137516476, guid: eb5b03b87e5766442be16facbf91b184,
-        type: 2}
-      propertyPath: deadClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 291c54a8b08b1e545aafc376fa05d753, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb5b03b87e5766442be16facbf91b184, type: 2}
   m_IsPrefabParent: 0

@@ -25,7 +25,7 @@ public class SpikeTrampController : MonoBehaviour {
 			ZombieController zc = col.gameObject.GetComponent<ZombieController> ();
 
 			if (instantKill)
-				currentDamage = zc.HP;
+				currentDamage = zc.healthPoints;
 			else
 				currentDamage = damage;
 

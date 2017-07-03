@@ -13,7 +13,7 @@ public class ZombieController : MonoBehaviour {
 	private CapsuleCollider2D myOnLiveCollider;
 	private BoxCollider2D myOnDeadCollider;
 
-	public float HP = 1.0f;
+	public float healthPoints = 1.0f;
 	public float movementSpeed = 2.0f;
 	public float attackForce = 2000.0f;
 	public float attackDamage = 1.0f;
@@ -44,20 +44,20 @@ public class ZombieController : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-		if (HP > 0) {
+		if (healthPoints > 0) {
 			MoveEnemyToDirection ();
 		}
 	}
 
 	void Update() {
-		if (HP > 0) {
+		if (healthPoints > 0) {
 			myAnimator.SetFloat ("hSpeed", Mathf.Abs (myRigidbody.velocity.x));
 		}
 	}
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		if (HP > 0) {
+		if (healthPoints > 0) {
 
 			if (col.gameObject.tag == "ground" && col.contacts [0].collider.sharedMaterial == null) {
 
@@ -84,7 +84,7 @@ public class ZombieController : MonoBehaviour {
 	}
 
 	void OnCollisionStay2D(Collision2D col) {
-		if (HP <= 0) {
+		if (healthPoints <= 0) {
 			if (gameObject.layer == LayerMask.NameToLayer ("ThrownObject") && myRigidbody.velocity == Vector2.zero) {
 				gameObject.layer = LayerMask.NameToLayer ("Handheld");
 			}
@@ -92,7 +92,7 @@ public class ZombieController : MonoBehaviour {
 	}
 
 	void OnCollisionExit2D(Collision2D col){
-		if (HP > 0) {
+		if (healthPoints > 0) {
 			if (col.gameObject.tag == "ground" && col.contacts [0].collider.sharedMaterial == null) {
 				ResetMovementLimits ();
 			} else if (col.gameObject.tag == "Player") {
@@ -158,14 +158,14 @@ public class ZombieController : MonoBehaviour {
 	}
 
 	public void ReceiveDamage(float damage){
-		HP -= damage;
+		healthPoints -= damage;
 
 		if (!bloodParticleSystem.isPlaying) {
 			bloodParticleSystem.Clear ();
 			bloodParticleSystem.Play ();
 		}
 
-		if (HP <= 0) {
+		if (healthPoints <= 0) {
 			SetToDeadState ();
 		}
 	}

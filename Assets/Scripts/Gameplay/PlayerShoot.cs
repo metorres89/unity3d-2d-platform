@@ -4,26 +4,28 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour {
 
-	public float lazerLength = 10.0f;
-	public Transform lazerOrigin;
+	//public float lazerLength = 10.0f;
+	public Transform bulletOrigin;
+	public GameObject bulletPrototype;
+	public float bulletSpeed = 50.0f;
 	public GameObject player;
-	public float lazerDelay = 0.5f;
+	public float shootDelay = 0.5f;
 
-	private Vector3 offset;
+	private Vector3 myOffset;
 	private bool myFlipX = false;
-	private float lazerTimer;
+	private float myShootDelay;
 
 	void Start(){
 
-		if (lazerOrigin == null) {
-			lazerOrigin = gameObject.transform.Find ("LazerOrigin");
+		if (bulletOrigin == null) {
+			bulletOrigin = gameObject.transform.Find ("BulletOrigin");
 		}
 
-		if (lazerOrigin != null && player != null) {
-			offset = lazerOrigin.position - player.transform.position;
+		if (bulletOrigin != null && player != null) {
+			myOffset = bulletOrigin.position - player.transform.position;
 		}
 
-		lazerTimer = lazerDelay;
+		myShootDelay = shootDelay;
 	}
 
 	void Update () {
@@ -31,12 +33,13 @@ public class PlayerShoot : MonoBehaviour {
 		if (Input.GetMouseButton (0)) {
 			PlayerState.IsShooting = true;
 
-			if (lazerTimer <= 0) {
-				ComputeShoot ();
-				lazerTimer = lazerDelay;
+			if (myShootDelay <= 0) {
+				FXAudio.PlayClip ("Shoot", 0.5f);
+				CreateNewBullet();
+				myShootDelay = shootDelay;
 			}
 
-			lazerTimer -= Time.deltaTime;
+			myShootDelay -= Time.deltaTime;
 		}
 
 		if (Input.GetMouseButtonUp (0)) {
@@ -53,7 +56,7 @@ public class PlayerShoot : MonoBehaviour {
 
 		Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
 
-		Vector2 rayOrigin = new Vector2 (lazerOrigin.position.x, lazerOrigin.position.y);
+		Vector2 rayOrigin = new Vector2 (bulletOrigin.position.x, bulletOrigin.position.y);
 		Vector2 rayDestiny = new Vector2 (worldPos.x, worldPos.y);
 
 		if(( !myFlipX && rayDestiny.x > rayOrigin.x) || (myFlipX && rayDestiny.x < rayOrigin.x) ){
@@ -70,6 +73,19 @@ public class PlayerShoot : MonoBehaviour {
 		}
 	}
 
+	public void CreateNewBullet() {
+		GameObject newBullet = Instantiate (bulletPrototype, bulletOrigin.position, Quaternion.identity);
+
+		Vector2 bulletDirection = Vector2.right;
+
+		if (myFlipX) {
+			newBullet.GetComponent<SpriteRenderer> ().flipX = myFlipX;
+			bulletDirection = Vector2.left;
+		}
+
+		newBullet.GetComponent<Rigidbody2D> ().velocity = bulletDirection * bulletSpeed;
+	}
+
 	public void Flip(bool flip)
 	{
 		if (flip != myFlipX) {
@@ -78,11 +94,11 @@ public class PlayerShoot : MonoBehaviour {
 			Vector3 newPos;
 
 			if (myFlipX)
-				newPos = player.transform.position - offset;
+				newPos = player.transform.position - myOffset;
 			else
-				newPos = player.transform.position + offset;
+				newPos = player.transform.position + myOffset;
 			
-			lazerOrigin.position = newPos;
+			bulletOrigin.position = newPos;
 		}
 	}
 }
