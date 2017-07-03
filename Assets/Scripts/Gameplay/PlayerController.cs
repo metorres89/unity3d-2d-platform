@@ -10,12 +10,15 @@ public class PlayerController : MonoBehaviour {
 	private SpriteRenderer mySpriteRenderer;
 	private PlayerShoot myPlayerShoot;
 	private PlayerGrabObject myPlayerGrabO;
-	private bool onStun = false;
-	private float myStunRecoveryTime = 0.0f;
+	private bool onStun;
+	private float myStunRecoveryTime;
 	private float myGameOverDelay;
+	private float myJumpDelay;
+	private bool jumpAxisInUse;
 
 	public float horizontalSpeed = 20.0f;
 	public float jumpForce = 20.0f;
+	public float jumpDelay = 1.0f;
 	public float stunRecoveryTime = 0.5f;
 	public float impactVerticalForce = 500.0f;
 	public float smashEnemyHeadDamage = 1.0f;
@@ -29,18 +32,21 @@ public class PlayerController : MonoBehaviour {
 	//this is a editable float at the inspector section, specify the remaining seconds after dead before the game over scene transition
 	public float gameOverDelay = 2.0f;
 
+	void Awake() {
+		onStun = false;
+		myStunRecoveryTime = stunRecoveryTime;
+		myGameOverDelay = gameOverDelay;
+		myJumpDelay = jumpDelay;
+		jumpAxisInUse = false;
+	}
+
 	void Start () {
 		myRigidbody = GetComponent<Rigidbody2D> ();
 		groundCheck = gameObject.transform.Find ("GroundCheck");
-
 		myAnimator = GetComponent<Animator> ();
 		mySpriteRenderer = GetComponent<SpriteRenderer> ();
 		myPlayerShoot = GetComponent<PlayerShoot> ();
 		myPlayerGrabO = GetComponent<PlayerGrabObject> ();
-
-		myStunRecoveryTime = stunRecoveryTime;
-		myGameOverDelay = gameOverDelay;
-
 	}
 
 	void FixedUpdate () {
@@ -56,7 +62,7 @@ public class PlayerController : MonoBehaviour {
 				}
 					
 			} else {
-				HandleMove (Input.GetAxis ("Horizontal"), Input.GetAxis ("Jump"));
+				HandleMove ();
 			}
 		}
 	}
@@ -92,28 +98,42 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	private void HandleMove(float horizontal, float jump) {
+	private void HandleMove() {
+
+		float jumpAxis;
+		float horizontalAxis;
+
+		horizontalAxis = Input.GetAxis ("Horizontal");
+		jumpAxis = Input.GetAxis ("Jump");
+
+		if (jumpAxisInUse)
+			myJumpDelay -= Time.deltaTime;
+
+		if (myJumpDelay <= 0.0f) {
+			jumpAxisInUse = false;
+			myJumpDelay = jumpDelay;
+		}
+
 		float velocityY = 0.0f;
 		float velocityX = 0.0f;
 
-		if (jump > 0 && PlayerState.isOnGround) {
+		if (jumpAxis > 0 && PlayerState.isOnGround && jumpAxisInUse == false) {
+			jumpAxisInUse = true;
 			velocityY = jumpForce;
-
-			FXAudio.playClip("Jump", 0.5f);
-
+			FXAudio.playClip ("Jump", 0.5f);
 		} else {
 			velocityY = myRigidbody.velocity.y;
 		}
 
-		if (horizontal != 0.0f) {
-			velocityX = horizontal * horizontalSpeed;
+		if (horizontalAxis != 0.0f) {
+			velocityX = horizontalAxis * horizontalSpeed;
 		} else {
 			velocityX = myRigidbody.velocity.x;
 		}
 
 		myRigidbody.velocity = new Vector2 (velocityX , velocityY);
 
-		PlayerState.horizontalDirection = horizontal;
+		PlayerState.horizontalDirection = horizontalAxis;
 	}
 
 	private void CheckIfIsGrounded() {
