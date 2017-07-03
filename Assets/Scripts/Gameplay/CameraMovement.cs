@@ -10,6 +10,7 @@ public class CameraMovement : MonoBehaviour {
 	void Start () {
 
 		FXAudio.Init ();
+		MusicAudio.Init ();
 
 		offset = transform.position - player.transform.position;
 	}

@@ -6,6 +6,7 @@ public static class FXAudio
 {
 	private static AudioSource FxAudioSource;
 	private static Dictionary<string, AudioClip> AudioClipDictionary;
+	private static float FxVolume;
 
 	public static void Init() {
 		if (FxAudioSource == null) {
@@ -21,6 +22,7 @@ public static class FXAudio
 			LoadClipsFromResources ("Sounds");
 		}
 
+		ReloadSettingsFromPlayerPrefs ();
 	}
 
 	public static void LoadClipsFromResources(string folderName){
@@ -39,12 +41,24 @@ public static class FXAudio
 	public static void PlayClip(string clipName) {
 		if (FxAudioSource != null) {
 			if (AudioClipDictionary.ContainsKey (clipName)) {
-				FxAudioSource.PlayOneShot (AudioClipDictionary [clipName], 0.5f);
+				FxAudioSource.PlayOneShot (AudioClipDictionary [clipName], FxVolume);
 			} else {
 				Debug.LogWarning ("FXAudio - clipName doesn't exists in audioClipDictionay");
 			}
 		} else {
 			Debug.LogWarning ("FXAudio - playClip - fxAudioSource is null");
 		}
+	}
+
+	public static void ReloadSettingsFromPlayerPrefs() {
+		if (PlayerPrefs.HasKey ("Audio.Fx.Volume")) {
+			FxVolume = PlayerPrefs.GetFloat ("Audio.Fx.Volume");
+		} else {
+			FxVolume = 0.5f;
+		}
+	}
+
+	public static void SetVolume(float volume) {
+		FxVolume = Mathf.Clamp(volume, 0.0f, 1.0f);
 	}
 }
