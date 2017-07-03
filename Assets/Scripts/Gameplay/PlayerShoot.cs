@@ -14,6 +14,7 @@ public class PlayerShoot : MonoBehaviour {
 	private Vector3 myOffset;
 	private bool myFlipX = false;
 	private float myShootDelay;
+	private bool hasShoot;
 
 	void Start(){
 
@@ -26,26 +27,30 @@ public class PlayerShoot : MonoBehaviour {
 		}
 
 		myShootDelay = shootDelay;
+		hasShoot = false;
 	}
 
 	void Update () {
 
-		if (Input.GetMouseButton (0)) {
-			PlayerState.IsShooting = true;
-
-			if (myShootDelay <= 0) {
-				FXAudio.PlayClip ("Shoot");
-				CreateNewBullet();
-				myShootDelay = shootDelay;
-			}
-
+		if (hasShoot) {
 			myShootDelay -= Time.deltaTime;
+		}
+
+		if (myShootDelay <= 0) {
+			hasShoot = false;
+			myShootDelay = shootDelay;
+		}
+
+		if (Input.GetMouseButton (0) && hasShoot == false) {
+			hasShoot = true;
+			FXAudio.PlayClip ("Shoot");
+			CreateNewBullet();
+			PlayerState.IsShooting = true;
 		}
 
 		if (Input.GetMouseButtonUp (0)) {
 			PlayerState.IsShooting = false;
 		}
-
 	}
 
 	void ComputeShoot(){
