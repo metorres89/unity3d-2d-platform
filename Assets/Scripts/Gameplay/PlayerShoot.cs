@@ -31,25 +31,27 @@ public class PlayerShoot : MonoBehaviour {
 	}
 
 	void Update () {
+		if(PlayerState.HealthPoints > 0.0f)
+		{
+			if (hasShoot) {
+				myShootDelay -= Time.deltaTime;
+			}
 
-		if (hasShoot) {
-			myShootDelay -= Time.deltaTime;
-		}
+			if (myShootDelay <= 0) {
+				hasShoot = false;
+				myShootDelay = shootDelay;
+			}
 
-		if (myShootDelay <= 0) {
-			hasShoot = false;
-			myShootDelay = shootDelay;
-		}
+			if (Input.GetMouseButton (0) && hasShoot == false) {
+				hasShoot = true;
+				FXAudio.PlayClip ("Shoot");
+				CreateNewBullet();
+				PlayerState.IsShooting = true;
+			}
 
-		if (Input.GetMouseButton (0) && hasShoot == false) {
-			hasShoot = true;
-			FXAudio.PlayClip ("Shoot");
-			CreateNewBullet();
-			PlayerState.IsShooting = true;
-		}
-
-		if (Input.GetMouseButtonUp (0)) {
-			PlayerState.IsShooting = false;
+			if (Input.GetMouseButtonUp (0)) {
+				PlayerState.IsShooting = false;
+			}	
 		}
 	}
 
