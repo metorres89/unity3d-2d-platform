@@ -137,18 +137,18 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void CheckIfIsGrounded() {
-
-		PlayerState.IsOnGround = false;
-
+		bool foundGround = false;
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
 		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundCheckRadius, groundLayer);
 		for (int i = 0; i < colliders.Length; i++)
 		{
-			if (colliders[i].gameObject != gameObject)
-				PlayerState.IsOnGround = true;
+			if (colliders [i].gameObject != gameObject) {
+				foundGround = true;
+			}
 		}
 
+		PlayerState.IsOnGround = foundGround;
 	}
 
 	private void UpdateAnimationController()

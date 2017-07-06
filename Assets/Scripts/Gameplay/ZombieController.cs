@@ -12,6 +12,7 @@ public class ZombieController : MonoBehaviour {
 	private Animator myAnimator;
 	private CapsuleCollider2D myOnLiveCollider;
 	private BoxCollider2D myOnDeadCollider;
+	private float myWalkingSpeed;
 
 	public float healthPoints = 1.0f;
 	public float walkingSpeed = 2.0f;
@@ -30,6 +31,7 @@ public class ZombieController : MonoBehaviour {
 		myAnimator = gameObject.GetComponent<Animator> ();
 		myOnLiveCollider = gameObject.GetComponent<CapsuleCollider2D> ();
 		myOnDeadCollider = gameObject.GetComponent<BoxCollider2D> ();
+		myWalkingSpeed = walkingSpeed;
 	}
 
 	void Start() {
@@ -123,7 +125,7 @@ public class ZombieController : MonoBehaviour {
 		if (leftLimit != Vector2.zero && rightLimit != Vector2.zero && movementDirection != Vector2.zero) {
 
 			if ((movementDirection == Vector2.right && transform.position.x < rightLimit.x) || (movementDirection == Vector2.left && transform.position.x > leftLimit.x)) {
-				myRigidbody.velocity = movementDirection * walkingSpeed;
+				myRigidbody.velocity = movementDirection * myWalkingSpeed;
 			} else {
 				Flip ();
 			}
@@ -187,5 +189,17 @@ public class ZombieController : MonoBehaviour {
 		gameObject.layer = LayerMask.NameToLayer("Handheld");
 
 		PlayerState.KilledEnemies++;
+	}
+
+	public void SetWalkingSpeed(float newSpeed){
+		myWalkingSpeed = newSpeed;
+	}
+
+	public float GetWalkingSpeed(){
+		return myWalkingSpeed;
+	}
+
+	public void ResetWalkingSpeed(){
+		myWalkingSpeed = walkingSpeed;
 	}
 }
