@@ -44,9 +44,9 @@ public class ResultPanelController : MonoBehaviour {
 	private void UpdateText() {
 		if (titleText != null) {
 			if (GameState.GetCurrentState() == GameState.ResultType.GAME_OVER) {
-				titleText.text = "Game Over ):";
+				titleText.text = "GAME OVER";
 			} else if (GameState.GetCurrentState() == GameState.ResultType.WIN) {
-				titleText.text = "You WIN :)";
+				titleText.text = "YOU WIN";
 			}
 		}
 	}

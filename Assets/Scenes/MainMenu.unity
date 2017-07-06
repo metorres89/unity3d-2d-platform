@@ -553,7 +553,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u2190 \u2192 or \"W\", \"D\""
+  m_Text: "\u2190 \u2192 or \"A\", \"D\""
 --- !u!222 &279419543
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -627,7 +627,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Left Click
+  m_Text: '"J"'
 --- !u!222 &297359580
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -701,7 +701,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Left Alt
+  m_Text: '"K"'
 --- !u!222 &350452678
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2018,7 +2018,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Left Ctrl
+  m_Text: '"L"'
 --- !u!222 &1477319939
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -3787,7 +3787,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4256536802612208, guid: ee6eff81f74246748ac72c26c2de3aae, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -30
+      value: -30.494
       objectReference: {fileID: 0}
     - target: {fileID: 4256536802612208, guid: ee6eff81f74246748ac72c26c2de3aae, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3816,11 +3816,6 @@ Prefab:
     - target: {fileID: 1856669469664536, guid: ee6eff81f74246748ac72c26c2de3aae, type: 2}
       propertyPath: m_Name
       value: ExitDoorSwitch (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 212859279474921602, guid: ee6eff81f74246748ac72c26c2de3aae,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ee6eff81f74246748ac72c26c2de3aae, type: 2}
@@ -5907,11 +5902,6 @@ Prefab:
     - target: {fileID: 1856669469664536, guid: ee6eff81f74246748ac72c26c2de3aae, type: 2}
       propertyPath: m_Name
       value: ExitDoorSwitch (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 212859279474921602, guid: ee6eff81f74246748ac72c26c2de3aae,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ee6eff81f74246748ac72c26c2de3aae, type: 2}
@@ -23209,7 +23199,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4256536802612208, guid: ee6eff81f74246748ac72c26c2de3aae, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 3.6
       objectReference: {fileID: 0}
     - target: {fileID: 4256536802612208, guid: ee6eff81f74246748ac72c26c2de3aae, type: 2}
       propertyPath: m_LocalPosition.z
@@ -23238,11 +23228,6 @@ Prefab:
     - target: {fileID: 1856669469664536, guid: ee6eff81f74246748ac72c26c2de3aae, type: 2}
       propertyPath: m_Name
       value: ExitDoorSwitch (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 212859279474921602, guid: ee6eff81f74246748ac72c26c2de3aae,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ee6eff81f74246748ac72c26c2de3aae, type: 2}

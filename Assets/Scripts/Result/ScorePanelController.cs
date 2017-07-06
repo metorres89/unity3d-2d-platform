@@ -49,7 +49,7 @@ public class ScorePanelController : MonoBehaviour {
 		}
 
 		if (timeScoreText != null) {
-			timeScoreText.text = string.Format("score x minutes: {0} \n score x seconds: {1}", GameState.GetTimeMinuteScore (), GameState.GetTimeSecondScore());
+			timeScoreText.text = string.Format("minutes: {0} seconds: {1}", GameState.GetTimeMinuteScore (), GameState.GetTimeSecondScore());
 		}
 
 		if (totalScoreText != null) {

@@ -21,26 +21,25 @@ public static class GameState
 	private static ResultType currentState = ResultType.INITIAL;
 
 	public static void SetState(ResultType newState, string nextScene) {
-
-		Debug.Log ("trying to set State of GameState");
-
 		if (newState != currentState) {
 
 			currentState = newState;
 
 			switch (currentState) {
 			case ResultType.INITIAL:
-				//reset private scores
 				GemScore = 0;
 				KillScore = 0;
 				TimeMinuteScore = 0;
 				TotalScore = 0;
 				break;
 			case ResultType.GAME_OVER:
+				GemScore = PlayerState.Score;
+				KillScore = PlayerState.KilledEnemies * 2000;
+				TimeMinuteScore = 0;
+				TimeSecondScore = 0;
+				TotalScore = GemScore + KillScore + TimeMinuteScore + TimeSecondScore;
+				break;
 			case ResultType.WIN:
-				
-				//calculate final scores
-
 				GemScore = PlayerState.Score;
 				KillScore = PlayerState.KilledEnemies * 2000;
 				TimeMinuteScore = ((int)PlayerState.RemainingTime / 60) * 1000;
