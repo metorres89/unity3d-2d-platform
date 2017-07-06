@@ -32,9 +32,8 @@ public class PlayerGrabObject : MonoBehaviour {
 	void Update() {
 		if (handheldObject != null) {
 
-			if (Input.GetKeyDown(KeyCode.LeftControl) && delayTakeObject <= 0.0f) {
-				Debug.Log ("player wants to throw the object!");
-
+			if (Input.GetAxis("Fire3") > 0.0f && delayTakeObject <= 0.0f) {
+				
 				ThrowObject ();
 
 			} else {
@@ -49,7 +48,7 @@ public class PlayerGrabObject : MonoBehaviour {
 
 		for (int i = 0; i < colliders.Length; i++) {
 			if (colliders[i].gameObject != gameObject) {
-				if(Input.GetKeyDown(KeyCode.LeftControl)) {
+				if(Input.GetAxis("Fire3") > 0.0f) {
 					TakeObject (colliders [i].gameObject);
 					return;
 				}
@@ -72,7 +71,7 @@ public class PlayerGrabObject : MonoBehaviour {
 	}
 
 	private void ThrowObject() {
-		if (handheldObject != null && Input.GetAxis("Fire1") > 0) {
+		if (handheldObject != null && Input.GetAxis("Fire3") > 0) {
 			Rigidbody2D handheldRigidbody = handheldObject.GetComponent<Rigidbody2D> ();
 			handheldObject.transform.parent = null;
 			handheldObject.layer = LayerMask.NameToLayer("ThrownObject");

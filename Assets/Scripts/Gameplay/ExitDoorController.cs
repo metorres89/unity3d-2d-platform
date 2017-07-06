@@ -18,7 +18,6 @@ public class ExitDoorController : MonoBehaviour {
 	};
 
 	public string switchTag = "Switch";
-	public string responsableAxis = "Fire2";
 
 	void Awake() {
 		currentState = DoorState.LOCKED;
@@ -30,7 +29,7 @@ public class ExitDoorController : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Input.GetAxisRaw (responsableAxis) == 0.0f) {
+		if (Input.GetAxisRaw ("Fire2") == 0.0f) {
 			axisInUse = false;
 		}
 

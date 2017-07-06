@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour {
 	public Transform groundCheck;
 	public float groundCheckRadius = 0.2f;
 	public LayerMask groundLayer;
+	public ParticleSystem hitParticleSystem;
 
 	//this is a editable float at the inspector section, specify the remaining seconds after dead before the game over scene transition
 	public float gameOverDelay = 2.0f;
@@ -174,9 +175,11 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void ReceiveDamage(float damage) {
+
+		PlayHitParticleSystem ();
+
 		if (!onStun) {
 			PlayerState.HealthPoints -= damage;
-
 			if (PlayerState.HealthPoints <= 0) {
 				PlayerState.IsDead = true;
 				FXAudio.PlayClip("Explosion");
@@ -184,12 +187,23 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	public void ReceiveImpact(Vector2 point, float force)
+	public void ReceiveImpact(Vector2 force)
 	{
-		Vector2 resultForce = new Vector2 (point.x * -1 * force, impactVerticalForce);
+
+		if (force.y == 0.0f)
+			force.y = impactVerticalForce;
+		
 		onStun = true;
 		myStunRecoveryTime = stunRecoveryTime;
-		myRigidbody.AddForce (resultForce);
+		myRigidbody.AddForce (force);
+		PlayHitParticleSystem ();
 		FXAudio.PlayClip("Hit");
+	}
+
+	private void PlayHitParticleSystem() {
+		if (!hitParticleSystem.isPlaying) {
+			hitParticleSystem.Clear ();
+			hitParticleSystem.Play ();
+		}
 	}
 }

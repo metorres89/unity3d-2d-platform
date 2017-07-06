@@ -113,7 +113,9 @@ public class ZombieController : MonoBehaviour {
 
 		PlayerController pc = target.GetComponent<PlayerController> ();
 		pc.ReceiveDamage (attackDamage);
-		pc.ReceiveImpact (attackPoint, attackForce);
+
+		Vector2 impactForce = new Vector2 (attackPoint.x * -1 * attackForce, 0.0f);
+		pc.ReceiveImpact (impactForce);
 	}
 
 	private void ResetMovementLimits(){

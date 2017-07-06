@@ -7,7 +7,6 @@ public class ExitDoorSwitchController : MonoBehaviour {
 	private Animator myAnimator;
 	private bool currentState;
 	private bool axisInUse = false;
-	public string responsableAxis = "Fire2";
 
 	void Awake() {
 		currentState = false;
@@ -31,7 +30,7 @@ public class ExitDoorSwitchController : MonoBehaviour {
 	}
 
 	public void Update() {
-		if (Input.GetAxis (responsableAxis) == 0.0f) {
+		if (Input.GetAxis ("Fire2") == 0.0f) {
 			axisInUse = false;
 		}
 	}
@@ -39,7 +38,7 @@ public class ExitDoorSwitchController : MonoBehaviour {
 	void OnTriggerStay2D(Collider2D col) {
 		if (col.gameObject.tag == "Player") {
 
-			if (Input.GetAxisRaw (responsableAxis) != 0.0f && axisInUse == false) {
+			if (Input.GetAxisRaw ("Fire2") != 0.0f && axisInUse == false) {
 				axisInUse = true;
 				SetState (!currentState);
 

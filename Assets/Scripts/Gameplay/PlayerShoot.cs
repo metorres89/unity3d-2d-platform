@@ -42,41 +42,16 @@ public class PlayerShoot : MonoBehaviour {
 				myShootDelay = shootDelay;
 			}
 
-			if (Input.GetMouseButton (0) && hasShoot == false) {
+			if (Input.GetAxis("Fire1") > 0.0f && hasShoot == false) {
 				hasShoot = true;
 				FXAudio.PlayClip ("Shoot");
 				CreateNewBullet();
 				PlayerState.IsShooting = true;
 			}
 
-			if (Input.GetMouseButtonUp (0)) {
+			if (Input.GetAxis("Fire1") == 0.0f) {
 				PlayerState.IsShooting = false;
 			}	
-		}
-	}
-
-	void ComputeShoot(){
-
-		Vector3 screenPos = Input.mousePosition;
-
-		screenPos.z = 20.0f;
-
-		Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
-
-		Vector2 rayOrigin = new Vector2 (bulletOrigin.position.x, bulletOrigin.position.y);
-		Vector2 rayDestiny = new Vector2 (worldPos.x, worldPos.y);
-
-		if(( !myFlipX && rayDestiny.x > rayOrigin.x) || (myFlipX && rayDestiny.x < rayOrigin.x) ){
-
-			Vector2 rayDirection = rayDestiny - rayOrigin;
-			RaycastHit2D hit = Physics2D.Raycast (rayOrigin, rayDirection);
-
-			//Debug.DrawLine (lazerOrigin.position, worldPos, Color.red, 0.5f);
-			Debug.DrawRay (rayOrigin, rayDirection, Color.blue, 0.5f);
-
-			if (hit) {
-				Debug.LogFormat ("We hit something!!! {0} {1}", hit.collider.gameObject.name, hit.collider.gameObject.tag);
-			}
 		}
 	}
 
