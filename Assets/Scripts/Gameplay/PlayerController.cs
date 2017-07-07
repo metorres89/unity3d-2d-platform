@@ -63,15 +63,15 @@ public class PlayerController : MonoBehaviour {
 					myStunRecoveryTime = stunRecoveryTime;
 				}
 					
-			} else {
-				HandleMove ();
 			}
+
 		}
 	}
 
 	void Update () {
 		if (PlayerState.HealthPoints > 0.0f) {
 			CheckFlip ();
+			HandleMove ();
 		} else {
 			myGameOverDelay -= Time.deltaTime;
 			Debug.Log ("Player is dead, start countdown to ResultScene!!!");
