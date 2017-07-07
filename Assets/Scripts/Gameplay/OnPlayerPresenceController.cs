@@ -21,6 +21,7 @@ public class OnPlayerPresenceController : MonoBehaviour {
 				}
 
 				myZombieController.SetWalkingSpeed( myZombieController.GetWalkingSpeed() * speedUp );
+				myZombieController.isFollowingPlayer = true;
 			}
 		}
 	}

@@ -13,12 +13,14 @@ public class ZombieController : MonoBehaviour {
 	private CapsuleCollider2D myOnLiveCollider;
 	private BoxCollider2D myOnDeadCollider;
 	private float myWalkingSpeed;
+	private float myFollowingPlayerDelay;
 
 	public float healthPoints = 1.0f;
 	public float walkingSpeed = 2.0f;
 	public float attackForce = 2000.0f;
 	public float attackDamage = 1.0f;
-
+	public bool isFollowingPlayer = false;
+	public float followingPlayerDelay = 1.0f;
 	public ParticleSystem bloodParticleSystem;
 
 	void Awake()
@@ -32,6 +34,7 @@ public class ZombieController : MonoBehaviour {
 		myOnLiveCollider = gameObject.GetComponent<CapsuleCollider2D> ();
 		myOnDeadCollider = gameObject.GetComponent<BoxCollider2D> ();
 		myWalkingSpeed = walkingSpeed;
+		myFollowingPlayerDelay = followingPlayerDelay;
 	}
 
 	void Start() {
@@ -125,13 +128,20 @@ public class ZombieController : MonoBehaviour {
 		
 	private void MoveEnemyToDirection() {
 		if (leftLimit != Vector2.zero && rightLimit != Vector2.zero && movementDirection != Vector2.zero) {
-
-			if ((movementDirection == Vector2.right && transform.position.x < rightLimit.x) || (movementDirection == Vector2.left && transform.position.x > leftLimit.x)) {
+			if ( ((movementDirection == Vector2.right && transform.position.x < rightLimit.x) || (movementDirection == Vector2.left && transform.position.x > leftLimit.x)) || isFollowingPlayer ) {
 				myRigidbody.velocity = movementDirection * myWalkingSpeed;
 			} else {
 				Flip ();
 			}
+		}
 
+		if (isFollowingPlayer) {
+			myFollowingPlayerDelay -= Time.fixedDeltaTime;
+
+			if (myFollowingPlayerDelay <= 0.0f) {
+				isFollowingPlayer = false;
+				myFollowingPlayerDelay = followingPlayerDelay;
+			}
 		}
 	}
 

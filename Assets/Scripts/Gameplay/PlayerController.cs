@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
 	public float impactVerticalForce = 500.0f;
 	public float smashEnemyHeadDamage = 1.0f;
 	public float smashEnemyHeadBounceForce = 1000.0f;
+	public float resistenceOnFalling = 50.0f;
 
 	//this properties work checking if character is on ground
 	public Transform groundCheck;
@@ -88,13 +89,20 @@ public class PlayerController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
+
+		//Debug.LogFormat ("Colision against {0} relativeVelocity: {1}", col.gameObject.name, col.relativeVelocity);
+
 		if (PlayerState.HealthPoints > 0.0f) {
 			if (col.gameObject.tag == "Enemy" && col.contacts [0].normal.y > 0) {
 				col.gameObject.GetComponent<ZombieController> ().ReceiveDamage (smashEnemyHeadDamage);
 				myRigidbody.AddForce (Vector2.up * smashEnemyHeadBounceForce);
 				myAnimator.SetTrigger ("triggerBounce");
 
-				FXAudio.PlayClip("PickupCoin");
+				FXAudio.PlayClip ("PickupCoin");
+			} else if(col.gameObject.tag == "ground" || col.gameObject.layer == groundLayer){
+				if (Mathf.Abs (col.relativeVelocity.y) >= resistenceOnFalling) {
+					ReceiveDamage (PlayerState.HealthPoints);
+				}
 			}
 		}
 	}
