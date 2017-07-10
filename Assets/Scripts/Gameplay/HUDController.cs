@@ -41,16 +41,16 @@ public class HUDController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (lifeText != null)
-			lifeText.text = string.Format ("Lifes: {0}", PlayerState.HealthPoints);
+			lifeText.text = PlayerState.HealthPoints.ToString ();
 
 		if (scoreText != null)
-			scoreText.text = string.Format ("Score: {0}", PlayerState.Score);
+			scoreText.text = PlayerState.Score.ToString ();
 
 		if (killsText != null)
-			killsText.text = string.Format ("Kills: {0}", PlayerState.KilledEnemies);
+			killsText.text = PlayerState.KilledEnemies.ToString ();
 
 		if (timeText != null) {
-			timeText.text = string.Format ("Time remaining: {0}:{1}", ParseToMinute (PlayerState.RemainingTime).ToString().PadLeft(2, '0'), ParseToSecond (PlayerState.RemainingTime).ToString().PadLeft(2, '0'));
+			timeText.text = string.Format ("{0}:{1}", ParseToMinute (PlayerState.RemainingTime).ToString().PadLeft(2, '0'), ParseToSecond (PlayerState.RemainingTime).ToString().PadLeft(2, '0'));
 		}
 	}
 
