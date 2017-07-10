@@ -7,7 +7,7 @@ public class ExitDoorController : MonoBehaviour {
 	private Animator myAnimator;
 	private DoorState currentState;
 	private bool axisInUse = false;
-
+	private GameObject[] allSwitches;
 	public float delayOpenDoor = 1.0f;
 
 	public enum DoorState
@@ -26,6 +26,9 @@ public class ExitDoorController : MonoBehaviour {
 
 	void Start () {
 		myAnimator = gameObject.GetComponent<Animator> ();
+		allSwitches = GameObject.FindGameObjectsWithTag (switchTag);
+
+		PlayerState.TotalDoorSwitches = allSwitches.Length;
 	}
 
 	void Update() {
@@ -88,8 +91,7 @@ public class ExitDoorController : MonoBehaviour {
 	}
 
 	public bool TryToUnlock () {
-		GameObject[] allSwitches = GameObject.FindGameObjectsWithTag (switchTag);
-
+		
 		int greenSwitches = 0;
 
 		foreach (GameObject goSwitch in allSwitches) {

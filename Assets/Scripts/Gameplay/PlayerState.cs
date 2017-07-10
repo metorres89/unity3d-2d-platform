@@ -7,6 +7,8 @@ public static class PlayerState
 	public static int KilledEnemies = 0;
 	public static int Score = 0;
 	public static float RemainingTime = 0.0f;
+	public static int TotalDoorSwitches = 0;
+	public static int ActivatedDoorSwitches = 0;
 
 	//animation flags
 	public static float HorizontalDirection = 0.0f;
@@ -24,6 +26,9 @@ public static class PlayerState
 		IsOnGround = false;
 		IsShooting = false;
 		IsDead = false;
+
+		TotalDoorSwitches = 0;
+		ActivatedDoorSwitches = 0;
 	}
 
 }

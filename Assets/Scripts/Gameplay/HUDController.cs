@@ -9,6 +9,7 @@ public class HUDController : MonoBehaviour {
 	public Text scoreText;
 	public Text killsText;
 	public Text timeText;
+	public Text switchesText;
 
 	// Use this for initialization
 	void Start () {
@@ -36,6 +37,12 @@ public class HUDController : MonoBehaviour {
 			if (t != null)
 				timeText = t.gameObject.GetComponent<Text> ();
 		}
+
+		if (switchesText == null) {
+			Transform t = gameObject.transform.Find ("SwitchesText");
+			if (t != null)
+				switchesText = t.gameObject.GetComponent<Text> ();
+		}
 	}
 	
 	// Update is called once per frame
@@ -51,6 +58,10 @@ public class HUDController : MonoBehaviour {
 
 		if (timeText != null) {
 			timeText.text = string.Format ("{0}:{1}", ParseToMinute (PlayerState.RemainingTime).ToString().PadLeft(2, '0'), ParseToSecond (PlayerState.RemainingTime).ToString().PadLeft(2, '0'));
+		}
+
+		if (switchesText != null) {
+			switchesText.text = string.Format ("{0} / {1}", PlayerState.ActivatedDoorSwitches, PlayerState.TotalDoorSwitches);
 		}
 	}
 

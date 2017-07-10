@@ -44,8 +44,10 @@ public class ExitDoorSwitchController : MonoBehaviour {
 
 				if (currentState) {
 					FXAudio.PlayClip ("SwitchGreen");
+					PlayerState.ActivatedDoorSwitches++;
 				} else {
 					FXAudio.PlayClip ("SwitchRed");
+					PlayerState.ActivatedDoorSwitches--;
 				}
 			}
 
