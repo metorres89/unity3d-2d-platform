@@ -8,6 +8,7 @@ public class MainMenuController : MonoBehaviour {
 
 	public Button startGameButton;
 	public Button settingsButton;
+	public Button quitButton;
 	public Button saveButton;
 	public Button discardButton;
 
@@ -39,8 +40,15 @@ public class MainMenuController : MonoBehaviour {
 				settingsButton = go.GetComponent<Button> ();
 		}
 
+		if (quitButton == null) {
+			GameObject go = GameObject.Find ("QuitButton");
+			if (go != null)
+				quitButton = go.GetComponent<Button> ();
+		}
+
 		startGameButton.onClick.AddListener (LoadGameplayScene);
 		settingsButton.onClick.AddListener (ToggleSettingsPanel);
+		quitButton.onClick.AddListener (Application.Quit);
 	}
 
 	private void InitSettingsPanelAndButtons() {

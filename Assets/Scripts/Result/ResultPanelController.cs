@@ -8,6 +8,7 @@ public class ResultPanelController : MonoBehaviour {
 	public Text titleText;
 	public Button restartButton;
 	public Button mainMenuButton;
+	public Button quitButton;
 
 	// Use this for initialization
 	void Start () {
@@ -32,13 +33,23 @@ public class ResultPanelController : MonoBehaviour {
 				mainMenuButton = t.gameObject.GetComponent<Button> ();
 		}
 
-		UpdateText ();
+		if (quitButton == null) {
+			Transform t = gameObject.transform.Find ("QuitButton");
+			if (t != null)
+				quitButton = t.gameObject.GetComponent<Button> ();
+		}
+
 
 		if(restartButton != null)
 			restartButton.onClick.AddListener (RestartGame);
 
 		if(mainMenuButton != null)
 			mainMenuButton.onClick.AddListener (GoToMainMenu);
+
+		if (quitButton != null)
+			quitButton.onClick.AddListener (Application.Quit);
+		
+		UpdateText ();
 	}
 
 	private void UpdateText() {
