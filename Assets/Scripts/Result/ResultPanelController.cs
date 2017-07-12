@@ -12,7 +12,6 @@ public class ResultPanelController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
 		MusicAudio.Init ();
 
 		if (titleText == null) {
@@ -63,14 +62,14 @@ public class ResultPanelController : MonoBehaviour {
 	}
 
 	private void RestartGame(){
-		Debug.Log ("restarting game!!!");
-
 		PlayerState.Reset ();
-		GameState.SetState (GameState.ResultType.INITIAL, "Gameplay");
+		GameState.SetState (GameState.ResultType.INITIAL);
+		SceneManager.LoadScene ("Gameplay", LoadSceneMode.Single);
 	}
 
 	private void GoToMainMenu(){
 		PlayerState.Reset ();
-		GameState.SetState (GameState.ResultType.INITIAL, "MainMenu");
+		GameState.SetState (GameState.ResultType.INITIAL);
+		SceneManager.LoadScene ("MainMenu", LoadSceneMode.Single);
 	}
 }

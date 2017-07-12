@@ -18,6 +18,9 @@ public class MainMenuController : MonoBehaviour {
 	public Slider musicVolumeSlider;
 
 	void Start () {
+		
+		if (Time.timeScale == 0.0f)
+			Time.timeScale = 1.0f;
 
 		FXAudio.Init ();
 		MusicAudio.Init ();

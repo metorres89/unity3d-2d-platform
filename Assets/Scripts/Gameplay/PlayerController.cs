@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
@@ -74,13 +75,10 @@ public class PlayerController : MonoBehaviour {
 			HandleMove ();
 		} else {
 			myGameOverDelay -= Time.deltaTime;
-			Debug.Log ("Player is dead, start countdown to ResultScene!!!");
-
 			if (myGameOverDelay <= 0) {
+				GameState.SetState(GameState.ResultType.GAME_OVER);
+				SceneManager.LoadScene ("Result", LoadSceneMode.Single);
 
-				Debug.Log ("Player is dead, changing GameState");
-
-				GameState.SetState(GameState.ResultType.GAME_OVER, "Result");
 			}
 		}
 
@@ -89,9 +87,6 @@ public class PlayerController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
-
-		//Debug.LogFormat ("Colision against {0} relativeVelocity: {1}", col.gameObject.name, col.relativeVelocity);
-
 		if (PlayerState.HealthPoints > 0.0f) {
 			if (col.gameObject.tag == "Enemy" && col.contacts [0].normal.y > 0) {
 				col.gameObject.GetComponent<ZombieController> ().ReceiveDamage (smashEnemyHeadDamage);

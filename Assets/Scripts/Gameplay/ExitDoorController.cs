@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExitDoorController : MonoBehaviour {
 
@@ -69,9 +70,6 @@ public class ExitDoorController : MonoBehaviour {
 
 				if (currentState == DoorState.LOCKED) {
 					bool tryToUnlock = TryToUnlock ();
-
-					Debug.LogFormat ("Player is trying to unlock the door , the result: {0}", tryToUnlock);
-
 					if (tryToUnlock) {
 						SetState (DoorState.UNLOCKED);
 
@@ -83,7 +81,8 @@ public class ExitDoorController : MonoBehaviour {
 					}
 				} else if (currentState == DoorState.OPEN) {
 					
-					GameState.SetState (GameState.ResultType.WIN, "Result");
+					GameState.SetState (GameState.ResultType.WIN);
+					SceneManager.LoadScene ("Result", LoadSceneMode.Single);
 				
 				}
 			}

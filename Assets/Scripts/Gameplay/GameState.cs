@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public static class GameState
 {
@@ -20,11 +19,9 @@ public static class GameState
 
 	private static ResultType currentState = ResultType.INITIAL;
 
-	public static void SetState(ResultType newState, string nextScene) {
+	public static void SetState(ResultType newState) {
 		if (newState != currentState) {
-
 			currentState = newState;
-
 			switch (currentState) {
 			case ResultType.INITIAL:
 				GemScore = 0;
@@ -48,8 +45,6 @@ public static class GameState
 				TotalScore = GemScore + KillScore + TimeMinuteScore + TimeSecondScore;
 				break;
 			}
-
-			SceneManager.LoadScene (nextScene, LoadSceneMode.Single);
 		}
 	}
 
@@ -75,5 +70,13 @@ public static class GameState
 
 	public static int GetTotalScore() {
 		return TotalScore;
+	}
+
+	public static void Reset() {
+		GemScore = 0;
+		KillScore = 0;
+		TimeMinuteScore = 0;
+		TotalScore = 0;
+		currentState = ResultType.INITIAL;
 	}
 }

@@ -31,7 +31,6 @@ public class PlayerShoot : MonoBehaviour {
 	}
 
 	void Update () {
-		Debug.Log ("holaaa");
 		if(PlayerState.HealthPoints > 0.0f)
 		{
 			if (hasShoot) {

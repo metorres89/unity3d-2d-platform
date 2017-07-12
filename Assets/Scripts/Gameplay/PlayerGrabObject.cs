@@ -57,8 +57,6 @@ public class PlayerGrabObject : MonoBehaviour {
 	}
 
 	private void TakeObject(GameObject target) {
-		Debug.LogFormat ("Player wants to drag {0}", target.tag);
-
 		handheldObject = target;
 		handheldObject.transform.parent = handheldPosition;
 		handheldObject.transform.localPosition = Vector2.zero;
