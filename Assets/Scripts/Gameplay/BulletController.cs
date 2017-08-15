@@ -8,6 +8,7 @@ public class BulletController : MonoBehaviour {
 	private Rigidbody2D myRigidBody;
 	private float mySelfDestructDelay;
 	private bool hasCollisioned;
+	private Vector3 originPosition;
 
 	public float selfDestructDelay = 0.2f;
 	public float xMaxLimit = 50.0f;
@@ -21,11 +22,12 @@ public class BulletController : MonoBehaviour {
 	public void Start() {
 		myAnimator = gameObject.GetComponent<Animator> ();
 		myRigidBody = gameObject.GetComponent<Rigidbody2D> ();
+		originPosition = gameObject.transform.position;
 	}
 
 	public void Update() {
 
-		if (gameObject.transform.position.x >= xMaxLimit || gameObject.transform.position.x <= xMinLimit) {
+		if (gameObject.transform.position.x >= originPosition.x + xMaxLimit || gameObject.transform.position.x <= originPosition.x + xMinLimit) {
 			DestroyImmediate (gameObject);
 		} else {
 			if (hasCollisioned) {
