@@ -92,7 +92,7 @@ public class MainMenuController : MonoBehaviour {
 	}
 
 	private void LoadGameplayScene() {
-		SceneManager.LoadScene ("Gameplay", LoadSceneMode.Single);
+		SceneManager.LoadScene ("Gameplay-level-1", LoadSceneMode.Single);
 	}
 
 	private void ToggleSettingsPanel() {

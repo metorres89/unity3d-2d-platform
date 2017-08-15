@@ -9,8 +9,8 @@ public class ResultPanelController : MonoBehaviour {
 	public Button restartButton;
 	public Button mainMenuButton;
 	public Button quitButton;
+	public Button nextButton;
 
-	// Use this for initialization
 	void Start () {
 		MusicAudio.Init ();
 
@@ -20,34 +20,19 @@ public class ResultPanelController : MonoBehaviour {
 				titleText = t.gameObject.GetComponent<Text> ();
 		}
 
-		if (restartButton == null) {
-			Transform t = gameObject.transform.Find ("RestartButton");
-			if (t != null)
-				restartButton = t.gameObject.GetComponent<Button> ();
+		restartButton.onClick.AddListener (RestartGame);
+
+		mainMenuButton.onClick.AddListener (GoToMainMenu);
+
+		quitButton.onClick.AddListener (Application.Quit);
+
+		nextButton.onClick.AddListener (NextLevel);
+
+		if (GameState.GetCurrentState () != GameState.ResultType.WIN) {
+			nextButton.enabled = false;
+			nextButton.gameObject.SetActive (false);
 		}
 
-		if (mainMenuButton == null) {
-			Transform t = gameObject.transform.Find ("MainMenuButton");
-			if (t != null)
-				mainMenuButton = t.gameObject.GetComponent<Button> ();
-		}
-
-		if (quitButton == null) {
-			Transform t = gameObject.transform.Find ("QuitButton");
-			if (t != null)
-				quitButton = t.gameObject.GetComponent<Button> ();
-		}
-
-
-		if(restartButton != null)
-			restartButton.onClick.AddListener (RestartGame);
-
-		if(mainMenuButton != null)
-			mainMenuButton.onClick.AddListener (GoToMainMenu);
-
-		if (quitButton != null)
-			quitButton.onClick.AddListener (Application.Quit);
-		
 		UpdateText ();
 	}
 
@@ -64,12 +49,19 @@ public class ResultPanelController : MonoBehaviour {
 	private void RestartGame(){
 		PlayerState.Reset ();
 		GameState.SetState (GameState.ResultType.INITIAL);
-		SceneManager.LoadScene ("Gameplay", LoadSceneMode.Single);
+		SceneManager.LoadScene ("Gameplay-level-1", LoadSceneMode.Single);
 	}
 
 	private void GoToMainMenu(){
 		PlayerState.Reset ();
 		GameState.SetState (GameState.ResultType.INITIAL);
 		SceneManager.LoadScene ("MainMenu", LoadSceneMode.Single);
+	}
+
+	private void NextLevel() {
+		PlayerState.Reset ();
+		GameState.SetState (GameState.ResultType.INITIAL);
+		SceneManager.LoadScene("Gameplay-level-2");
+
 	}
 }

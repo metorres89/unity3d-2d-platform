@@ -2,25 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpikeTrampController : MonoBehaviour {
+public class DamageArea : MonoBehaviour {
 
 	public bool instantKill = true;
+
 	public float damage;
 
-	void OnCollisionEnter2D(Collision2D col){
+	void OnTriggerEnter2D(Collider2D col)
+	{
+		Debug.Log (col.gameObject.tag);
 
 		float currentDamage = 0.0f;
 
-		if (col.gameObject.tag == "Player" && col.contacts [0].normal.y < 0) {
+		if (col.gameObject.tag == "Player") {
 
 			if (instantKill)
 				currentDamage = PlayerState.HealthPoints;
 			else
 				currentDamage = damage;
-			
+
 			col.gameObject.GetComponent<PlayerController> ().ReceiveDamage (currentDamage);
 
-		} else if (col.gameObject.tag == "Enemy" && col.contacts [0].normal.y < 0) {
+		} else if (col.gameObject.tag == "Enemy") {
 
 			ZombieController zc = col.gameObject.GetComponent<ZombieController> ();
 

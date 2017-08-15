@@ -213,6 +213,8 @@ MonoBehaviour:
   walkingSpeed: 2
   attackForce: 2000
   attackDamage: 1
+  isFollowingPlayer: 0
+  followingPlayerDelay: 1
   bloodParticleSystem: {fileID: 198467677594451670}
 --- !u!198 &198467677594451670
 ParticleSystem:
@@ -2931,7 +2933,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: f13098e5e927a0b4388edc13ce81f4a9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
