@@ -18,6 +18,7 @@ public class SawTrampController : MonoBehaviour {
 		if (col.gameObject.tag == "Player") {
 			PlayerController pc = col.gameObject.GetComponent<PlayerController> ();
 			pc.ReceiveDamage (damage);
+			pc.ReceiveImpact (Vector2.up * 10.0f);
 		} else if (col.gameObject.tag == "Enemy") {
 			col.gameObject.GetComponent<ZombieController> ().ReceiveDamage (damage);
 
