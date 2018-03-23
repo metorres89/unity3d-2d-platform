@@ -15,7 +15,7 @@ public class HUDController : MonoBehaviour {
 	void Start () {
 
 		if (lifeText == null) {
-			Transform t = gameObject.transform.FindChild ("LifeText");
+			Transform t = gameObject.transform.Find ("LifeText");
 			if (t != null)
 				lifeText = t.gameObject.GetComponent<Text> ();
 		}
